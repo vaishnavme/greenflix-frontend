@@ -1,0 +1,21 @@
+.videoCard {
+    max-width: 20rem;
+    height: 16rem;
+    margin: 1rem;
+    border-radius: 0.2rem;
+    overflow: hidden;
+}
+.thumbnail {
+    width: 100%;
+    max-width: inherit;
+}
+@media screen and (max-width: 405px) {
+    .videoCard{
+        max-width: 100%;
+        height: auto;
+        margin: auto;
+    }
+    .cardBody {
+        padding: 0;
+    }
+}
