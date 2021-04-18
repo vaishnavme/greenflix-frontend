@@ -9,17 +9,21 @@ import './App.css';
 function App() {
   const { isUserLogin } = useAuth();
   const { allVideos, dispatch } = useData();
+  console.log("len", allVideos.length)
+  // 
   
-  const getData = async () => {
-    const response = await axios.get("https://api.npoint.io/23a22c6885c64df9945d");
-    dispatch({type: "SET_DATA", payload: response.data.contents});
-  }
+  
 
   useEffect(() => {
-    if(allVideos.length === 0) {
-      getData();
-    }
-  },[])
+    const getData = async () => {
+      try {
+        const response = await axios.get("https://api.npoint.io/23a22c6885c64df9945d");
+        dispatch({type: "SET_DATA", payload: response.data.contents});
+      } catch(error) {
+        console.error(error)
+      }
+    }; getData();
+  },[dispatch])
 
   return (
     <div className="App">
