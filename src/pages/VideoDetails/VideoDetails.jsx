@@ -1,6 +1,7 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useData, useAuth } from "../../context";
+import { LoginModal } from "../../components";
 import ReactPlayer from "react-player";
 import styles from "./VideoPlayer.module.css";
 
@@ -153,21 +154,3 @@ export default function VideoDetails() {
     )
 }
 
-const LoginModal = ({setShowLoginModal}) => {
-    return (
-        <div className={`${styles.modalBox}`}>
-            <div className={`${styles.loginModal}`}>
-                <h4>You need to be login.</h4>
-                <div className={`${styles.menuFooter}`}>
-                    <button 
-                        className={`btn btn-secondary w40`}
-                        onClick={() => setShowLoginModal(false)}>CLOSE
-                    </button>
-                    <button className={`btn btn-secondary w40`}>
-                        <Link to="/login">Sign In</Link>
-                    </button>
-                </div>
-            </div>
-        </div>
-    )
-}
