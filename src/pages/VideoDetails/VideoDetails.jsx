@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function VideoDetails() {
     const { playList, dispatch, isLoading, setLoading } = useData();
-    const { isUserLogin } = useAuth();
+    const { user } = useAuth();
     const [videoInfo, setVideoInfo] = useState();
     const [newPlaylistName, setNewPlaylistName] = useState("");
     const [showLoginModal, setShowLoginModal] = useState(false)
@@ -32,7 +32,7 @@ export default function VideoDetails() {
                 setLoading(false);
             }
         })();
-    },[id])
+    },[])
 
     // check if video is in playlist
     const getPlayListById = (playListID) => 
@@ -57,7 +57,7 @@ export default function VideoDetails() {
 
     //toggle in playlist
     const toggleInPlaylist = (playListIDName) => {
-        isUserLogin ?
+        user ?
             dispatch({
                 type: "TOGGLE_IN_PLAYLIST",
                 payload: {
@@ -68,7 +68,7 @@ export default function VideoDetails() {
     }
 
     const toggleMenu = () => {
-        isUserLogin ? setShowMenu(() => !showMenu) : setShowLoginModal(() => !showLoginModal)
+        user ? setShowMenu(() => !showMenu) : setShowLoginModal(() => !showLoginModal)
     }
 
     return (

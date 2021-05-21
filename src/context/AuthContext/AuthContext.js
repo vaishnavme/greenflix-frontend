@@ -9,17 +9,20 @@ export const AuthProvider = ({children}) => {
     )
 
     const loginCredentialHandler = async (email, password) => {
+        console.log("ema", email)
         try {
-            const { data: {data, success}} = await axios.post("/user/login", {
+            const { data: {data, success} } = await axios.post(`/user/login`, {
                 email,
                 password
             })
+            console.log("user", data)
             if(success) {
                 setUser(data);
                 localStorage?.setItem("authUser", JSON.stringify(data));
             }
-        } catch(err) {
-            console.log(err)
+            return { data, success };
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -27,9 +30,10 @@ export const AuthProvider = ({children}) => {
         localStorage?.removeItem("authUser");
         setUser(null);
     }
+
     return (
         <AuthContext.Provider value={{
-            user,
+            user, 
             loginCredentialHandler,
             logOutUser
         }}>

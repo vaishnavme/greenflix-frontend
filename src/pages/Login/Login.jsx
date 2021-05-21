@@ -6,7 +6,7 @@ import styles from "./Login.module.css";
 export default function Login() {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
-    const { loginCredentialHandler} = useAuth();
+    const { loginCredentialHandler } = useAuth();
     const navigate = useNavigate();
     const { state } = useLocation();
     

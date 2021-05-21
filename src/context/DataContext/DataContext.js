@@ -29,7 +29,6 @@ export function DataProvider({children}) {
         try {
             setLoading(true);
             const { data: {success, video} } = await axios.get('/videos');
-            console.log(success, video)
             if(success) {
                 dispatch({type: "SET_DATA", payload: video})
             }

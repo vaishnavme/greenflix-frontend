@@ -5,7 +5,7 @@ import { Navbar, PrivateRoute } from "./components";
 import './App.css';
 
 function App() {
-  const { isUserLogin } = useAuth();
+  const { user } = useAuth();
 
   return (
     <div className="App">
@@ -21,11 +21,11 @@ function App() {
           <PrivateRoute 
             path="playlist" 
             element={<Playlist/>}
-            login={isUserLogin}
+            login={user}
           />
           <PrivateRoute
             path="account"
-            login={isUserLogin}
+            login={user}
             element={<Account />}
           />
         </Routes>
