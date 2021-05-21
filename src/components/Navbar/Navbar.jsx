@@ -4,7 +4,7 @@ import styles from "./Navbar.module.css"
 
 export const Navbar = () => {
     const { user, isUserLogin } = useAuth();
-    console.log("login",isUserLogin)
+
     return (
         <nav className={`${styles.navbar}`}>
             {/* desktop nav styles */}
