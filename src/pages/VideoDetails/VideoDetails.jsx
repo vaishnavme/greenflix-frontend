@@ -1,25 +1,39 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useData, useAuth } from "../../context";
-import { LoginModal } from "../../components";
+import { LoginModal, Loader } from "../../components";
 import ReactPlayer from "react-player";
 import styles from "./VideoPlayer.module.css";
+import axios from "axios";
 
 export default function VideoDetails() {
-    const { allVideos, playList, dispatch } = useData();
+    const { playList, dispatch, isLoading, setLoading } = useData();
     const { isUserLogin } = useAuth();
-
+    const [videoInfo, setVideoInfo] = useState();
     const [newPlaylistName, setNewPlaylistName] = useState("");
     const [showLoginModal, setShowLoginModal] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const { id } = useParams();
 
     // get videos details from params
-    const getVideoDetails = (allVideosList, id) => {
-        return allVideosList.find((video) => video.id === id);
-    }
-    const videoInfo = getVideoDetails(allVideos, id)
-    
+    useEffect(() => {
+        (async () => {
+            try {
+                setLoading(true);
+                const {data: {success, video}} = await axios.get(`/videos/${id}`);
+                console.log(video)
+                if(success) {
+                    setVideoInfo(video)
+                }
+                setLoading(false);
+            } catch(err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            }
+        })();
+    },[id])
+
     // check if video is in playlist
     const getPlayListById = (playListID) => 
         playList.filter((playListItem) => playListItem.id === playListID)?.[0]
@@ -58,30 +72,31 @@ export default function VideoDetails() {
     }
 
     return (
-        <div className={`${styles.videoDetails}`}>
+        <>
+        {isLoading && <Loader/>}
+        {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal}/>}
+        {
+            videoInfo &&
+            <div className={`${styles.videoDetails}`}>
             <div>
                 <ReactPlayer
                         className={styles.reactPlayer}
-                        url={`https://www.youtube.com/watch?v=${videoInfo.id}`}
+                        url={`https://www.youtube.com/watch?v=${videoInfo.link}`}
                         width="100%"
                         height="100%"
                         controls
                         pip
                     />
             </div>
-            {
-                showLoginModal &&
-                <LoginModal setShowLoginModal={setShowLoginModal}/>
-            }
             <div className={`${styles.about}`}>
                 <div className={`${styles.aboutInfo}`}>
                     <div className={`${styles.title}`}>{videoInfo.title}</div>
                     <div className={`${styles.description}`}>{videoInfo.description}</div>
                 </div>
                 <div className={`${styles.aboutAction}`}>
-                    <a href={videoInfo.channel} target="_blank" rel="noreferrer">
+                    <a href={videoInfo.channellink} target="_blank" rel="noreferrer">
                         <div className={`${styles.channel}`}>
-                            <img className={`${styles.channelProfile}`} src={videoInfo.profile} alt={videoInfo.name}/>
+                            <img className={`${styles.channelProfile}`} src={videoInfo.profilelink} alt={videoInfo.name}/>
                             <div className={`${styles.channelName}`}>{videoInfo.name}</div>
                         </div>
                     </a>
@@ -149,8 +164,9 @@ export default function VideoDetails() {
                         }
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> 
+        </div>}
+        </>
     )
 }
 
