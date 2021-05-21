@@ -1,17 +1,18 @@
 import { useData } from "../../context";
-import { VideoCard } from "../../components";
+import { VideoCard, Loader } from "../../components";
 import styles from "./Home.module.css";
 
 export default function Home() {
-    const { allVideos } = useData();
+    const { allVideos, isLoading } = useData();
   
     return (
         <div>
             <div className={`h2`}>Home</div>
+            {isLoading && <Loader/>}
             <div className={`${styles.videoGrid}`}>
                 {
                     allVideos.map((video) => (
-                        <VideoCard key={video.id} video={video}/>
+                        <VideoCard key={video._id} video={video}/>
                     ))
                 }
             </div>
