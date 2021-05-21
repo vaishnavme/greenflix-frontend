@@ -1,4 +1,4 @@
-import { useData } from "../../context/data-context";
+import { useData } from "../../context";
 import { VideoCard } from "../../components";
 import styles from "./Home.module.css";
 

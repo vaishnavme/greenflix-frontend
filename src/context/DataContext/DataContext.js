@@ -1,5 +1,5 @@
 import { useContext ,createContext, useReducer } from "react";
-import {dataReducer} from "../reducer/data-reducer";
+import {dataReducer} from "./data-reducer";
 
 const initailState = {
     allVideos: [],

@@ -1,4 +1,4 @@
-export { DataProvider } from "./data-context";
-export { useData } from "./data-context";
-export { AuthProvider } from "./auth-context";
-export { useAuth } from "./auth-context";
+export { DataProvider } from "./DataContext/DataContext";
+export { useData } from "./DataContext/DataContext";
+export { AuthProvider } from "./AuthContext/AuthContext";
+export { useAuth } from "./AuthContext/AuthContext";

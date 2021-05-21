@@ -32,13 +32,7 @@ export const Navbar = () => {
                 </ul>
                 
                 <div>
-                    <div className={`ml-1 h6`}>Hi👋 {user.name}</div>
-                    {/* <button 
-                        className={`btn btn-secondary w-auto`}>
-                            <Link to={isUserLogin ? "/" : "/login"}>
-                                {isUserLogin ? "Sign Out" : "Sign In"}
-                            </Link>
-                    </button> */}
+                    <div className={`ml-1 h6`}>Hi👋 </div>
                 </div>
             </div>
 
