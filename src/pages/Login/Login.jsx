@@ -1,59 +1,65 @@
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context";
 import styles from "./Login.module.css";
 
 export default function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const { isUserLogin, checkUser } = useAuth();
-    const { state } = useLocation();
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
+    const { loginCredentialHandler} = useAuth();
     const navigate = useNavigate();
-    console.log("isUserLogn:",isUserLogin)
-    const getLogin = () => {
-        checkUser(username, password)
-        navigate(state?.from ? state.from : "/")
-    }
+    const { state } = useLocation();
     
-    return (
-        <div className={`${styles.card}`}>
-            <div className={`${styles.header}`}>
-                <h1>Welcome Back</h1>
-                <p className={`${styles.subtitle}`}>Enter your email and password.</p>
-            </div>
-            <div>
-                <form>
-                    <div className={`styled-input`}>
-                        <input 
-                            type="email" 
-                            placeholder="Enter your email"
-                            onChange={(e) => setUsername(e.target.value)}
-                            required/>
-                        <span></span>
-                    </div>
-                    <div className={`styled-input`}>
-                        <input 
-                            type="password" 
-                            placeholder="Enter your password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            required/>
-                        <span></span>
-                    </div>
-                </form>
+    const loginHandler = async (e) => {
+        e.preventDefault();
+        const { success } = await loginCredentialHandler(
+            userEmail,
+            userPassword
+        )
+        console.log(success)
+        if(success) {
+            navigate(state?.from ? state.from : "/");
+        } else {
+            navigate("/login")
+        }
+    }
 
+    return (
+        <div className={`${styles.main}`}>
+            <div className={`${styles.card} p-2`}>
+                <div className={`${styles.header}`}>
+                    <h6>Hi there👋</h6>
+                    <h4>Welcome Back</h4>
+                </div>
+                <div className={`${styles.body}`}>
+                    <form onSubmit={(e) =>loginHandler(e)}>
+                        <div className={`styled-input`}>
+                            <input
+                                onChange={(e) => setUserEmail(() => e.target.value)}
+                                value={userEmail}
+                                type="email" 
+                                placeholder="Enter your email" 
+                                required/>
+                            <span></span>
+                        </div>
+                        <div className={`styled-input`}>
+                            <input 
+                                onChange={(e) =>setUserPassword(() => e.target.value)}
+                                value={userPassword}
+                                type="password" 
+                                placeholder="Enter your password" 
+                                required/>
+                            <span></span>
+                        </div>
+                        <button
+                            type="submit"
+                            className={`btn btn-secondary ${styles.formBtn}`}>
+                                Log in
+                        </button>
+                    </form>
+                    <p>Don't have account? <Link className={`f-primary`} to="/signup">Sign Up</Link> here</p>
+                </div>
             </div>
-            <button 
-                className={`btn btn-primary lg`}
-                onClick={getLogin}>
-                    Sign In
-            </button>
-            {/* {
-                showError && 
-                <p className={`f-warning`}>Wrong username or password</p>
-            }
-            <div className={`mt-2`}>
-                <p>New here? <Link disabled className={`f-info`} to="/signup">Sign Up</Link> </p>
-            </div> */}
         </div>
     )
 }
