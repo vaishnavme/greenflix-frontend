@@ -32,7 +32,7 @@ export default function VideoDetails() {
                 setLoading(false);
             }
         })();
-    },[])
+    },[id, setLoading])
 
     // check if video is in playlist
     const getPlayListById = (playListID) => 
@@ -40,7 +40,7 @@ export default function VideoDetails() {
     
     const isInPlayList = (playListID, videoId) => {
         const playListName = getPlayListById(playListID)
-        return playListName.videos.find((video) => video.id === videoId)
+        return playListName.videos.find((video) => video._id === videoId)
     }
     const getPlayListByName = (playListName) =>
         playList.filter((playListItem) => playListItem.name === playListName)?.[0]
@@ -105,14 +105,14 @@ export default function VideoDetails() {
                         <button 
                             className={`${styles.btnIcon}`}
                             onClick={() => toggleInPlaylist("likedVideo")}> 
-                                {isInPlayList("likedVideo", videoInfo.id) ? 
+                                {isInPlayList("likedVideo", videoInfo._id) ? 
                                 <span className={`material-icons`}>favorite</span> 
                                 : <span className={`material-icons`}>favorite_border</span>}
                         </button>
                         <button
                             className={`${styles.btnIcon}`}
                             onClick={() => toggleInPlaylist("watchLater")}>
-                                {isInPlayList("watchLater", videoInfo.id) ? 
+                                {isInPlayList("watchLater", videoInfo._id) ? 
                                 <span className={`material-icons`}>watch_later</span> 
                                 : <span className={`material-icons`}>schedule</span>}
                         </button>
@@ -131,7 +131,7 @@ export default function VideoDetails() {
                                             <input
                                                 className={`mr-2`}
                                                 type="checkbox"
-                                                checked={isInPlayList(playListItem.id, videoInfo.id)}
+                                                checked={isInPlayList(playListItem.id, videoInfo._id)}
                                                 value={playListItem.id}
                                                 onChange={() => toggleInPlaylist(playListItem.id)}
                                             />{playListItem.name}

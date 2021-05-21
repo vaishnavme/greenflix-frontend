@@ -20,7 +20,7 @@ const removeFromPlayList = (state, playListID, videoContent) => ({
       {
         ...playListItem,
         videos: playListItem.videos.filter(
-          (videoItem) => videoItem.id !== videoContent.id
+          (videoItem) => videoItem._id !== videoContent._id
         )
       }
       : playListItem
@@ -33,7 +33,7 @@ export const dataReducer = (state, {type, payload}) => {
     console.log("Payload: ", payload)
     switch(type) {
         case "SET_DATA":
-            return {...state, allVideos: payload}
+            return {...state, allVideos: payload || []}
         
         case "TOGGLE_IN_PLAYLIST": 
             const getPlayList = state.playList.find(
@@ -41,7 +41,7 @@ export const dataReducer = (state, {type, payload}) => {
             )
             
             const isInPlayList = getPlayList.videos.find(
-              (video) => video.id === payload.videoInfo.id
+              (video) => video._id === payload.videoInfo._id
             )
             return isInPlayList ?
                     removeFromPlayList(state, payload.playListID, payload.videoInfo)

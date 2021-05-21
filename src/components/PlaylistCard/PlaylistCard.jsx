@@ -12,8 +12,8 @@ export const PlaylistCard = ({playListItem}) => {
                         <div>
                             <img 
                                 className={`${styles.thumbnail}`}
-                                src={playListItem.videos[0].thumbnail} 
-                                alt={playListItem.videos[0].id}/>
+                                src={playListItem.videos[0].image} 
+                                alt={playListItem.videos[0]._id}/>
                         </div> : 
                         <div className={`h6`}>No Videos in playlist</div>
                     }

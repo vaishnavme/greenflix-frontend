@@ -1,6 +1,6 @@
 import { useContext ,createContext, useReducer, useEffect } from "react";
 import axios from "axios";
-import { useAuth, useLoader } from "..";
+import { useLoader } from "..";
 import { dataReducer } from "./data-reducer";
 
 const initailState = {
@@ -42,6 +42,7 @@ export function DataProvider({children}) {
 
     useEffect(() => {
         getVideos();
+        // eslint-disable-next-line
     }, [])
 
     return (
