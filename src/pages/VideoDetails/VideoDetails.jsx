@@ -34,6 +34,8 @@ export default function VideoDetails() {
         })();
     },[id, setLoading])
 
+    
+
     // check if video is in playlist
     const getPlayListById = (playListID) => 
         playList.filter((playListItem) => playListItem.id === playListID)?.[0]

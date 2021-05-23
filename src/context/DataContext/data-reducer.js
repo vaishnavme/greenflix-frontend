@@ -35,6 +35,12 @@ export const dataReducer = (state, {type, payload}) => {
         case "SET_DATA":
             return {...state, allVideos: payload || []}
         
+        case "SET_LIKED":
+            return {...state, likedVideos: payload || []}
+        
+        case "SET_WATCHLATER":
+            return {...state, watchlater: payload || []}
+
         case "TOGGLE_IN_PLAYLIST": 
             const getPlayList = state.playList.find(
               (playListItem) => playListItem.id === payload.playListID

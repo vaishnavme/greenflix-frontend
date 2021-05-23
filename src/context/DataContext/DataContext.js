@@ -2,9 +2,12 @@ import { useContext ,createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import { useLoader } from "..";
 import { dataReducer } from "./data-reducer";
+import { useAuth } from "../AuthContext/AuthContext";
 
 const initailState = {
     allVideos: [],
+    likedVideos: [],
+    watchlater: [],
     playList : [
         {
             id: "likedVideo",
@@ -22,8 +25,17 @@ const initailState = {
 const DataContext = createContext();
 
 export function DataProvider({children}) {
+    const { user } = useAuth();
     const {isLoading, setLoading} = useLoader();
     const [state, dispatch] = useReducer(dataReducer, initailState);
+
+
+    const addToLikedVideos = async({videoId}) => {
+        const {data: {success}} = await axios.post(`/${user._id}/${videoId}`);
+        if(success) {
+            getLikedVideos();
+        }
+    }
 
     const getVideos = async() => {
         try {
@@ -40,8 +52,41 @@ export function DataProvider({children}) {
         }
     }
 
+    const getLikedVideos = async() => {
+        try {
+            setLoading(true);
+            const { data: {success, likedvideos} } = await axios.get(`/liked/${user._id}`);
+            if(success) {
+                dispatch({type: "SET_LIKED", payload: likedvideos})
+            }
+            setLoading(false);
+        } catch(err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const getWatchlater = async() => {
+        try {
+            setLoading(true);
+            const { data: {success, watchlater} } = await axios.get(`/watchlater/${user._id}`);
+            if(success) {
+                dispatch({type: "SET_WATCHLATER", payload: watchlater})
+            }
+            setLoading(false);
+        } catch(err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+
     useEffect(() => {
         getVideos();
+        getLikedVideos();
+        getWatchlater();
         // eslint-disable-next-line
     }, [])
 
