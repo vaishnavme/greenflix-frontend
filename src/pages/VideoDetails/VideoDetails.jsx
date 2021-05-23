@@ -29,7 +29,7 @@ export default function VideoDetails() {
         (async () => {
             try {
                 setLoading(true);
-                const {data: {success, video}} = await axios.get(`/videos/${id}`);
+                const {data: {success, video}} = await axios.get(`https://greenflix.herokuapp.com/videos/${id}`);
                 if(success) {
                     setVideoInfo(video)
                 }
