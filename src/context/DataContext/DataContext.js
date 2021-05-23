@@ -28,11 +28,11 @@ export function DataProvider({children}) {
     const { user } = useAuth();
     const {setLoading} = useLoader();
     const [state, dispatch] = useReducer(dataReducer, initailState);
-
+    const BASE_URL = "https://greenflix.herokuapp.com/"
 
     const addToLikedVideos = async({videoId}) => {
         try {
-            const { data:{success} } = await axios.post(`/liked/${user._id}/${videoId}`)
+            const { data:{success} } = await axios.post(`${BASE_URL}/liked/${user._id}/${videoId}`)
             if(success) {
                 getLikedVideos();
             }
@@ -43,7 +43,7 @@ export function DataProvider({children}) {
 
     const removeLikedVideos = async({videoId}) => {
         try {
-            const { data: {success} } = await axios.delete(`/liked/${user._id}/${videoId}`)
+            const { data: {success} } = await axios.delete(`${BASE_URL}/liked/${user._id}/${videoId}`)
             if(success) {
                 getLikedVideos();
             }
@@ -54,7 +54,7 @@ export function DataProvider({children}) {
 
     const addToWatchLater = async({videoId}) => {
         try {
-            const { data:{success} } = await axios.post(`/watchlater/${user._id}/${videoId}`)
+            const { data:{success} } = await axios.post(`${BASE_URL}/watchlater/${user._id}/${videoId}`)
             if(success) {
                 getWatchlater();
             }
@@ -65,7 +65,7 @@ export function DataProvider({children}) {
 
     const removeWatchlater = async({videoId}) => {
         try {
-            const { data: {success} } = await axios.delete(`/watchlater/${user._id}/${videoId}`)
+            const { data: {success} } = await axios.delete(`${BASE_URL}/watchlater/${user._id}/${videoId}`)
             if(success) {
                 getWatchlater();
             }
@@ -77,7 +77,7 @@ export function DataProvider({children}) {
     const getVideos = async() => {
         try {
             setLoading(true);
-            const { data: {success, video} } = await axios.get('/videos');
+            const { data: {success, video} } = await axios.get(`${BASE_URL}/videos`);
             if(success) {
                 dispatch({type: "SET_DATA", payload: video})
             }
@@ -92,7 +92,7 @@ export function DataProvider({children}) {
     const getLikedVideos = async() => {
         try {
             setLoading(true);
-            const { data: {success, likedvideos} } = await axios.get(`/liked/${user._id}`);
+            const { data: {success, likedvideos} } = await axios.get(`${BASE_URL}/liked/${user._id}`);
             console.log(likedvideos)
             if(success) {
                 dispatch({type: "SET_LIKED", payload: likedvideos})
@@ -108,7 +108,7 @@ export function DataProvider({children}) {
     const getWatchlater = async() => {
         try {
             setLoading(true);
-            const { data: {success, watchlater} } = await axios.get(`/watchlater/${user._id}`);
+            const { data: {success, watchlater} } = await axios.get(`${BASE_URL}/watchlater/${user._id}`);
             if(success) {
                 dispatch({type: "SET_WATCHLATER", payload: watchlater})
             }
