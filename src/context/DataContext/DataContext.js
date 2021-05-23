@@ -28,7 +28,7 @@ export function DataProvider({children}) {
     const { user } = useAuth();
     const {setLoading} = useLoader();
     const [state, dispatch] = useReducer(dataReducer, initailState);
-    const BASE_URL = "https://greenflix.herokuapp.com/"
+    const BASE_URL = "https://greenflix.herokuapp.com"
 
     const addToLikedVideos = async({videoId}) => {
         try {
