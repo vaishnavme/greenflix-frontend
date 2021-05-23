@@ -2,18 +2,18 @@ import { Link } from "react-router-dom";
 import styles from "./PlaylistCard.module.css";
 
 export const PlaylistCard = ({playListItem}) => {
+    console.log(playListItem)
     return (
         <div>
-            <h4>{playListItem.name}</h4>
-            <Link to={`/playlist/${playListItem.id}`}>
+            <Link to={`${playListItem._id}`}>
                 <div className={styles.videoCard}>
                     {
-                        playListItem.videos.length !== 0 ?
+                        playListItem.length !== 0 ?
                         <div>
                             <img 
                                 className={`${styles.thumbnail}`}
-                                src={playListItem.videos[0].image} 
-                                alt={playListItem.videos[0]._id}/>
+                                src={playListItem.image} 
+                                alt={playListItem._id}/>
                         </div> : 
                         <div className={`h6`}>No Videos in playlist</div>
                     }

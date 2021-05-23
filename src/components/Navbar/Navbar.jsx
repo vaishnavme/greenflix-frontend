@@ -22,7 +22,12 @@ export const Navbar = () => {
                     <li className={`${styles.navLink} h6 mt-2`}>
                         <NavLink 
                             activeStyle={{fontWeight: 600}}
-                            to="/playlist">🎫 Playlist</NavLink>
+                            to="/liked">❤️ Liked Videos</NavLink>
+                    </li>
+                    <li className={`${styles.navLink} h6 mt-2`}>
+                        <NavLink 
+                            activeStyle={{fontWeight: 600}}
+                            to="/watch">⏳ Watch Later</NavLink>
                     </li>
                     <li className={`${styles.navLink} h6 mt-2`}>
                         <NavLink 
@@ -48,13 +53,16 @@ export const Navbar = () => {
             <div className={`${styles.mobileNav}`}>
                 <ul className={`${styles.mbItems}`}>
                     <li>
-                        <Link to="/">🏡 <span className={`${styles.mbName}`}>Home</span></Link>
+                        <NavLink to="/">🏡 <span className={`${styles.mbName}`}>Home</span></NavLink>
                     </li>
                     <li>
-                        <Link to="/playlist">🎫 <span className={`${styles.mbName}`}>Playlist</span></Link>
+                        <NavLink to="/liked">❤️  <span className={`${styles.mbName}`}>Liked Videos</span></NavLink>
                     </li>
                     <li>
-                        <Link to="/account">👨🏾‍🌾 <span className={`${styles.mbName}`}>Account</span></Link>
+                        <NavLink to="/watch">⏳  <span className={`${styles.mbName}`}>Watch Later</span></NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/account">👨🏾‍🌾 <span className={`${styles.mbName}`}>Account</span></NavLink>
                     </li>
                 </ul>
             </div>

@@ -1,18 +1,27 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useData, useAuth } from "../../context";
-import { LoginModal, Loader } from "../../components";
+import { useData, useAuth, useLoader } from "../../context";
+import { LoginModal, Loader, checkIn } from "../../components";
 import ReactPlayer from "react-player";
 import styles from "./VideoPlayer.module.css";
 import axios from "axios";
 
 export default function VideoDetails() {
-    const { playList, dispatch, isLoading, setLoading } = useData();
+    const {   
+        likedvideos, 
+        watchlater, 
+        addToLikedVideos,
+        removeLikedVideos,
+        addToWatchLater,
+        removeWatchlater
+    } = useData();
+    const { isLoading, setLoading } = useLoader();
+
     const { user } = useAuth();
     const [videoInfo, setVideoInfo] = useState();
-    const [newPlaylistName, setNewPlaylistName] = useState("");
+    //const [newPlaylistName, setNewPlaylistName] = useState("");
     const [showLoginModal, setShowLoginModal] = useState(false)
-    const [showMenu, setShowMenu] = useState(false);
+    //const [showMenu, setShowMenu] = useState(false);
     const { id } = useParams();
 
     // get videos details from params
@@ -21,7 +30,6 @@ export default function VideoDetails() {
             try {
                 setLoading(true);
                 const {data: {success, video}} = await axios.get(`/videos/${id}`);
-                console.log(video)
                 if(success) {
                     setVideoInfo(video)
                 }
@@ -34,44 +42,65 @@ export default function VideoDetails() {
         })();
     },[id, setLoading])
 
-    
-
-    // check if video is in playlist
-    const getPlayListById = (playListID) => 
-        playList.filter((playListItem) => playListItem.id === playListID)?.[0]
-    
-    const isInPlayList = (playListID, videoId) => {
-        const playListName = getPlayListById(playListID)
-        return playListName.videos.find((video) => video._id === videoId)
-    }
-    const getPlayListByName = (playListName) =>
-        playList.filter((playListItem) => playListItem.name === playListName)?.[0]
-    
-    // adding new playlist
-    const createNewPlaylist = (e) => {
-        !getPlayListByName(newPlaylistName) && dispatch({
-            type: "NEW_PLAYLIST", 
-            payload:{newPlaylist: newPlaylistName,
-            videoInfo: videoInfo}
-        })
-        setNewPlaylistName("")
-    }
-
-    //toggle in playlist
-    const toggleInPlaylist = (playListIDName) => {
-        user ?
-            dispatch({
-                type: "TOGGLE_IN_PLAYLIST",
-                payload: {
-                    playListID: playListIDName,
-                    videoInfo: videoInfo
-                }
-            }) : setShowLoginModal(true)
+    const quickActionHandler = (action, videoId, collection) => {
+        if(user) {
+            switch(action) {
+                case "LIKED":
+                    checkIn(collection, videoId) ?
+                        removeLikedVideos({videoId: videoId})
+                    : addToLikedVideos({videoId: videoId})
+                    break;
+                
+                case "WATCH":
+                    checkIn(collection, videoId) ?
+                        removeWatchlater({videoId: videoId})
+                    : addToWatchLater({videoId: videoId})
+                    break;
+                
+                default:
+                    break
+            }
+        } else {
+            setShowLoginModal(true)
+        }
     }
 
-    const toggleMenu = () => {
-        user ? setShowMenu(() => !showMenu) : setShowLoginModal(() => !showLoginModal)
-    }
+    // // check if video is in playlist
+    // const getPlayListById = (playListID) => 
+    //     playList.filter((playListItem) => playListItem.id === playListID)?.[0]
+    
+    // const isInPlayList = (playListID, videoId) => {
+    //     const playListName = getPlayListById(playListID)
+    //     return playListName.videos.find((video) => video._id === videoId)
+    // }
+    // const getPlayListByName = (playListName) =>
+    //     playList.filter((playListItem) => playListItem.name === playListName)?.[0]
+    
+    // // adding new playlist
+    // const createNewPlaylist = (e) => {
+    //     !getPlayListByName(newPlaylistName) && dispatch({
+    //         type: "NEW_PLAYLIST", 
+    //         payload:{newPlaylist: newPlaylistName,
+    //         videoInfo: videoInfo}
+    //     })
+    //     setNewPlaylistName("")
+    // }
+
+    // //toggle in playlist
+    // const toggleInPlaylist = (playListIDName) => {
+    //     user ?
+    //         dispatch({
+    //             type: "TOGGLE_IN_PLAYLIST",
+    //             payload: {
+    //                 playListID: playListIDName,
+    //                 videoInfo: videoInfo
+    //             }
+    //         }) : setShowLoginModal(true)
+    // }
+
+    // const toggleMenu = () => {
+    //     user ? setShowMenu(() => !showMenu) : setShowLoginModal(() => !showLoginModal)
+    // }
 
     return (
         <>
@@ -106,19 +135,19 @@ export default function VideoDetails() {
                     <div className={`${styles.aboutButtons}`}>
                         <button 
                             className={`${styles.btnIcon}`}
-                            onClick={() => toggleInPlaylist("likedVideo")}> 
-                                {isInPlayList("likedVideo", videoInfo._id) ? 
+                            onClick={() => quickActionHandler("LIKED", videoInfo._id, likedvideos)}> 
+                                {checkIn(likedvideos, videoInfo._id) ? 
                                 <span className={`material-icons`}>favorite</span> 
                                 : <span className={`material-icons`}>favorite_border</span>}
                         </button>
                         <button
                             className={`${styles.btnIcon}`}
-                            onClick={() => toggleInPlaylist("watchLater")}>
-                                {isInPlayList("watchLater", videoInfo._id) ? 
+                            onClick={() => quickActionHandler("WATCH", videoInfo._id, watchlater)}>
+                                {checkIn(watchlater, videoInfo._id) ? 
                                 <span className={`material-icons`}>watch_later</span> 
                                 : <span className={`material-icons`}>schedule</span>}
                         </button>
-                        <button 
+                        {/* <button 
                             onClick={toggleMenu}
                             className={`${styles.btnIcon}`}>
                             <span className={`material-icons`}>playlist_add</span>
@@ -163,7 +192,7 @@ export default function VideoDetails() {
                                 </div>
                             </div>
                             )
-                        }
+                        } */}
                     </div>
                 </div>
             </div> 

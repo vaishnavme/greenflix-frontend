@@ -6,7 +6,7 @@ import { useAuth } from "../AuthContext/AuthContext";
 
 const initailState = {
     allVideos: [],
-    likedVideos: [],
+    likedvideos: [],
     watchlater: [],
     playList : [
         {
@@ -26,14 +26,51 @@ const DataContext = createContext();
 
 export function DataProvider({children}) {
     const { user } = useAuth();
-    const {isLoading, setLoading} = useLoader();
+    const {setLoading} = useLoader();
     const [state, dispatch] = useReducer(dataReducer, initailState);
 
 
     const addToLikedVideos = async({videoId}) => {
-        const {data: {success}} = await axios.post(`/${user._id}/${videoId}`);
-        if(success) {
-            getLikedVideos();
+        try {
+            const { data:{success} } = await axios.post(`/liked/${user._id}/${videoId}`)
+            if(success) {
+                getLikedVideos();
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    const removeLikedVideos = async({videoId}) => {
+        try {
+            const { data: {success} } = await axios.delete(`/liked/${user._id}/${videoId}`)
+            if(success) {
+                getLikedVideos();
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    const addToWatchLater = async({videoId}) => {
+        try {
+            const { data:{success} } = await axios.post(`/watchlater/${user._id}/${videoId}`)
+            if(success) {
+                getWatchlater();
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    const removeWatchlater = async({videoId}) => {
+        try {
+            const { data: {success} } = await axios.delete(`/watchlater/${user._id}/${videoId}`)
+            if(success) {
+                getWatchlater();
+            }
+        } catch(err) {
+            console.log(err);
         }
     }
 
@@ -56,6 +93,7 @@ export function DataProvider({children}) {
         try {
             setLoading(true);
             const { data: {success, likedvideos} } = await axios.get(`/liked/${user._id}`);
+            console.log(likedvideos)
             if(success) {
                 dispatch({type: "SET_LIKED", payload: likedvideos})
             }
@@ -94,9 +132,13 @@ export function DataProvider({children}) {
         <DataContext.Provider value={{
             allVideos: state.allVideos,
             playList: state.playList,
+            likedvideos: state.likedvideos,
+            watchlater: state.watchlater,
             dispatch,
-            isLoading,
-            setLoading
+            addToLikedVideos,
+            removeLikedVideos,
+            addToWatchLater,
+            removeWatchlater
         }}>
             {children}
         </DataContext.Provider>

@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "./context";
-import { Home, Playlist, PlaylistPage, VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
+import { Home, Likedvideos, Watchlater ,VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
 import { Navbar, PrivateRoute } from "./components";
 import './App.css';
 
@@ -13,16 +13,12 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="playlist/:id" element={<PlaylistPage/>}/>
           <Route path="/:id" element={<VideoDetails/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="*" element={<NotFound />} />
-          <PrivateRoute 
-            path="playlist" 
-            element={<Playlist/>}
-            login={user}
-          />
+          <PrivateRoute path="/liked" login={user} element={<Likedvideos />}/>
+          <PrivateRoute path="/watch" login={user} element={<Watchlater />}/>
           <PrivateRoute
             path="account"
             login={user}
