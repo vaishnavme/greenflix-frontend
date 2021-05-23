@@ -11,7 +11,7 @@ export const AuthProvider = ({children}) => {
     const loginCredentialHandler = async (email, password) => {
         console.log("ema", email)
         try {
-            const { data: {data, success} } = await axios.post(`/user/login`, {
+            const { data: {data, success} } = await axios.post(`https://greenflix.herokuapp.com/user/login`, {
                 email,
                 password
             })
