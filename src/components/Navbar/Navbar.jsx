@@ -1,8 +1,10 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context";
 import styles from "./Navbar.module.css"
 
 export const Navbar = () => {
-
+    const { user, logOutUser } = useAuth();
+    const navigate = useNavigate();
     return (
         <nav className={`${styles.navbar}`}>
             {/* desktop nav styles */}
@@ -30,7 +32,15 @@ export const Navbar = () => {
                 </ul>
                 
                 <div>
-                    <div className={`ml-1 h6`}>Hi👋 </div>
+                    <div className={`ml-1`}>{
+                        user ? (
+                            <>
+                                <div className={`h6`}>Hi👋 {user.name}</div>
+                                <button className={`btn btn-secondary w-auto`} onClick={() => logOutUser()}>Log Out</button>
+                            </>
+                            )
+                        : <button className={`btn btn-secondary w-auto`} onClick={() => navigate("/login")}>Login</button>
+                    }</div>
                 </div>
             </div>
 
