@@ -1,26 +1,27 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context";
+import { errorNotification, successNotification } from "../../components";
 import styles from "./Login.module.css";
 
 export default function Login() {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
-    const { loginCredentialHandler } = useAuth();
+    const { logInUser } = useAuth();
     const navigate = useNavigate();
     const { state } = useLocation();
     
     const loginHandler = async (e) => {
         e.preventDefault();
-        const { success } = await loginCredentialHandler(
+        const { success } = await logInUser(
             userEmail,
             userPassword
         )
-        console.log(success)
         if(success) {
-            navigate(state?.from ? state.from : "/");
+            successNotification("Login Successfull!!")
+            navigate(state?.from ? state.from : "/", { replace: true });
         } else {
-            navigate("/login")
+            errorNotification("Error Ocuured")
         }
     }
 
@@ -57,7 +58,7 @@ export default function Login() {
                                 Log in
                         </button>
                     </form>
-                    <p>Don't have account? <Link className={`f-primary`} to="/signup">Sign Up</Link> here</p>
+                    <p>Don't have account? <Link className="f-primary" to="/signup">Sign Up</Link> here</p>
                 </div>
             </div>
         </div>

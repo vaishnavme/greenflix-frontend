@@ -1,3 +1,6 @@
+@import url("https://icyui.netlify.app/style/main.css");
+@import "react-toastify/dist/ReactToastify.min.css";
+
 :root {
   --white: #ffffff;
   --light-gray: #E2E8F0;
@@ -23,7 +26,7 @@ button {
   border: none;
   background: none;
 }
-.container {
+.main {
   width: 100%;
   margin: 1rem auto;
   padding: 0.5rem;

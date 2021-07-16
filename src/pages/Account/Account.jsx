@@ -2,30 +2,29 @@ import { useAuth } from "../../context";
 import styles from "./Account.module.css";
 
 export default function Login() {
-    const { user, logOutUser } = useAuth();
+    const { user } = useAuth();
     
     return (
-        <div className={`${styles.main}`}>
-            <div className={`${styles.card} p-2`}>
+        <div>
+            <section className={`${styles.wrapper}`}>
+            <div className={`${styles.formSection}`}>
                 <div className={`${styles.header}`}>
-                    <h6>Hi there👋</h6>
-                    <h4><span className={`f-warning`}>{user.name}</span></h4>                 
+                    <h5>Hi {user.name}</h5>
                 </div>
-                <div className={`${styles.body}`}>
-                    <form>
-                        <div className={`styled-input`}>
-                            <input
-                                value={user.email}
-                                type="email" 
-                                readOnly 
-                                placeholder="Enter your email" 
-                                required/>
-                            <span></span>
-                        </div>
-                    </form>
-                    <button className={`btn btn-secondary`} onClick={() => logOutUser()}>Log Out</button>
+                <div className={`mt-2 mb-2`}>
+                    <p>Welcome to account setting. You can update your <br/> account details here.</p>
+                    <div className={`mt-2 mb-2`}>
+                        <label className={`${styles.label}`}>Your Name</label>
+                        <input className={`${styles.inputField} mb-2`} readOnly type="text" defaultValue={user.name}/>
+                        
+                        <label className={`${styles.label}`}>Your Email</label>
+                        <input className={`${styles.inputField} mb-4`} readOnly type="text" defaultValue={user.email}/>
+
+                    </div>
                 </div>
             </div>
+            
+        </section>
         </div>
     )
 }
