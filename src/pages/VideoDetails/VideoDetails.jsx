@@ -137,15 +137,15 @@ export default function VideoDetails() {
                             className={`${styles.btnIcon}`}
                             onClick={() => quickActionHandler("LIKED", videoInfo._id, likedvideos)}> 
                                 {checkIn(likedvideos, videoInfo._id) ? 
-                                <span className={`material-icons`}>favorite</span> 
-                                : <span className={`material-icons`}>favorite_border</span>}
+                                <i className="bx bxs-heart"></i>
+                                : <i className="bx bx-heart"></i>}
                         </button>
                         <button
                             className={`${styles.btnIcon}`}
                             onClick={() => quickActionHandler("WATCH", videoInfo._id, watchlater)}>
                                 {checkIn(watchlater, videoInfo._id) ? 
-                                <span className={`material-icons`}>watch_later</span> 
-                                : <span className={`material-icons`}>schedule</span>}
+                                <i className="bx bxs-stopwatch"></i> 
+                                : <i className="bx bx-stopwatch"></i>}
                         </button>
                         {/* <button 
                             onClick={toggleMenu}

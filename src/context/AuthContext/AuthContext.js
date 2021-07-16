@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { errorNotification } from "../../components";
 
 const AuthContext = createContext();
 
@@ -7,34 +8,71 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("authUser"))
     )
+    // eslint-disable-next-line
+    const [token, setToken] = useState(
+        JSON.parse(localStorage.getItem("authToken"))
+    )
 
-    const loginCredentialHandler = async (email, password) => {
-        console.log("ema", email)
+    if (token) {
+        console.log("token set");
+        axios.defaults.headers.common["Authorization"] = `${token}`;
+    }
+
+    const logInUser = async (email, password) => {
         try {
-            const { data: {data, success} } = await axios.post(`/user/login`, {
+            const { data: {user, success, token} } = await axios.post(`/user/login`, {
                 email,
                 password
             })
-            console.log("user", data)
+            
             if(success) {
-                setUser(data);
-                localStorage?.setItem("authUser", JSON.stringify(data));
+                setUser(user);
+                setToken(token);
+                axios.defaults.headers.common["Authorization"] = `${token}`
+                localStorage.setItem("authUser", JSON.stringify(user));
+                localStorage.setItem("authToken", JSON.stringify(token));
             }
-            return { data, success };
+            return { user, success };
+        } catch (err) {
+            errorNotification("Error Occured!")
+            console.log(err);
+        }
+    }
+
+    const signUpUser = async({name, email, password}) => {
+        try {
+            const { data: {success, user, token, message} } = await axios.post(`/user/signup`, {
+                name: name,
+                email: email,
+                password: password
+            })
+            if(success) {
+                console.log("token");
+                setUser(user);
+                setToken(token);
+                axios.defaults.headers.common["Authorization"] = `${token}`
+                localStorage.setItem("authUser", JSON.stringify(user));
+                localStorage.setItem("authToken", JSON.stringify(token));
+            } 
+            return { success, message };
         } catch (err) {
             console.log(err);
         }
     }
 
-    const logOutUser = async () => {
+    const logOutUser = () => {
         localStorage?.removeItem("authUser");
+        localStorage?.removeItem("authToken");
         setUser(null);
+        setToken(null);
     }
 
     return (
         <AuthContext.Provider value={{
             user, 
-            loginCredentialHandler,
+            token,
+            logInUser,
+            signUpUser,
             logOutUser
         }}>
             {children}
