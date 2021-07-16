@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { useAuth } from "./context";
 import { Home, Likedvideos, Watchlater ,VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
 import { Navbar, PrivateRoute } from "./components";
-import './App.css';
 
 function App() {
   const { user } = useAuth();
