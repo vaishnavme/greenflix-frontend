@@ -1,44 +1,54 @@
-.desktopNav {
-    position: fixed;
+.navbar {
+    padding: 1rem;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    z-index: 10;
+}
+.brand {
+    font-size: 1.2rem;
+}
+.container {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-    overflow: auto;
-    padding: 2.5rem;
-    width: 20%;
-    height: 100%;
-    border-right: 4px solid var(--border);
 }
 .navLink {
-    padding: 0.3rem 0;
+    display: inline;
+    margin: 0 1rem;
 }
-.mobileNav {
+.btnIcon {
     display: none;
 }
-.mbItems {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 20px;
-}
-
 @media screen and (max-width: 768px) {
-    .desktopNav {
-        display: none;
-    }
-    .mobileNav {
+    .btnIcon {
         display: block;
-        position: fixed;
-        bottom: 0;
-        padding: 0.8rem 0;
-        width: 100vw;
-        background-color: var(--primary-light);
-        box-shadow: rgba(0, 0, 0, 0.1) 0px -10px 15px -3px, rgba(0, 0, 0, 0.05) 0px -4px 6px -2px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 0.2rem;
     }
-}
-@media screen and (max-width: 440px) {
-    .mbName {
-        display: none;
+    .navContainer {
+        position: fixed;
+        height: 100%;
+        left: -100%;
+        top: 5rem;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
+        border-radius: 10px;
+        text-align: left;
+        transition: 0.3s;
+    }
+    .navItems {
+        padding: 1rem 2rem;
+    }
+    .navActive {
+        left: 0;
+    }
+    .navLink {
+        display: block;
+        margin: 1rem auto;
+        font-size: 1.02rem;
     }
 }

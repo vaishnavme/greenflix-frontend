@@ -1,4 +1,9 @@
 @import url('https://deploy-preview-1--icyui.netlify.app/style/main.css');
+:root {
+  --white: #ffffff;
+
+  --shadow:rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
 * {
   margin: 0;
   padding: 0;
@@ -9,13 +14,13 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
+    background-color: var(--white);
 }
 a {
   text-decoration: none;
   color: inherit;
 }
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button {
+  border: none;
+  background: none;
 }
