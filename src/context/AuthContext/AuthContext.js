@@ -14,8 +14,7 @@ export const AuthProvider = ({children}) => {
     )
 
     if (token) {
-        console.log("token set");
-        axios.defaults.headers.common["Authorization"] = `${token}`;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
 
     const logInUser = async ({email, password}) => {

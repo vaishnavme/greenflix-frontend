@@ -28,7 +28,6 @@ const removeFromPlayList = (state, playListID, videoContent) => ({
 })
 
 export const dataReducer = (state, {type, payload}) => {
-  console.log(state)
     switch(type) {
         case "SET_DATA":
             return {...state, allVideos: payload || []}
