@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css"
 
 export const Navbar = () => {
@@ -7,6 +7,9 @@ export const Navbar = () => {
 
     const navLinkVisible = () => setNavActive(prevState => !prevState)
 
+    const activeStyle = {
+        color: "#22C55E"
+    }
     return (
         <Fragment>
             <nav className={`${styles.navbar}`}>
@@ -18,13 +21,13 @@ export const Navbar = () => {
                     <div className={`${styles.navContainer} ${isNavActive && styles.navActive}`}>
                         <ul className={`${styles.navItems}`}>
                             <li className={`${styles.navLink}`}>
-                                <Link to="/">Home</Link>
+                                <NavLink to="/" activeStyle={activeStyle} end>Home</NavLink>
                             </li>
                             <li className={`${styles.navLink}`}>
-                                <Link to="/playlist">Playlists</Link>
+                                <NavLink to="/playlist" activeStyle={activeStyle}>Playlists</NavLink>
                             </li>
                             <li className={`${styles.navLink}`}>
-                                <Link to="/account">Account</Link>
+                                <NavLink to="/account" activeStyle={activeStyle}>Account</NavLink>
                             </li>
                             <button>Logout</button>
                         </ul>
