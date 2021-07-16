@@ -3,7 +3,7 @@ import styles from "./VideoCard.module.css";
 
 export const VideoCard = ({video}) => {
     return (
-        <Link to={`/${video._id}`}>
+        <Link to={`/${video._id}`} className={`${styles.card}`}>
             <div className={`${styles.videoCard}`}>
                 <img className={`${styles.thumbnail}`} src={video.image} alt={video.title}/>
                 <div className={`${styles.cardBody}`}>

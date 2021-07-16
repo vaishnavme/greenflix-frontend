@@ -7,7 +7,6 @@ export default function Home() {
   
     return (
         <div>
-            <div className={`h2`}>Home</div>
             {isLoading && <Loader/>}
             <div className={`${styles.videoGrid}`}>
                 {

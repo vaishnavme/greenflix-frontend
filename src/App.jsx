@@ -7,24 +7,20 @@ function App() {
   const { user } = useAuth();
 
   return (
-    <div className="App">
+    <div>
       <Navbar/>
-      <main>
+        <div className="container">
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/:id" element={<VideoDetails/>}/>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp/>}/>
-          <Route path="*" element={<NotFound />} />
-          <PrivateRoute path="/liked" login={user} element={<Likedvideos />}/>
-          <PrivateRoute path="/watch" login={user} element={<Watchlater />}/>
-          <PrivateRoute
-            path="account"
-            login={user}
-            element={<Account />}
-          />
-        </Routes>
-    </main>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/:id" element={<VideoDetails/>}/>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp/>}/>
+            <Route path="*" element={<NotFound />} />
+            <PrivateRoute path="/liked" login={user} element={<Likedvideos />}/>
+            <PrivateRoute path="/watch" login={user} element={<Watchlater />}/>
+            <PrivateRoute path="account" login={user} element={<Account />}/>
+          </Routes>
+        </div>
     </div>
   );
 }
