@@ -18,7 +18,8 @@ export default function Login() {
         })
     }
     
-    const loginHandler = async() => {
+    const loginHandler = async(e) => {
+        e.preventDefault();
         const { success } = await logInUser(logInCred)
         if(success) {
             successNotification("Login Successfull!!")
@@ -26,7 +27,6 @@ export default function Login() {
         } else {
             errorNotification("Error Ocuured")
         }
-        console.log(logInCred)
     }
 
     return (

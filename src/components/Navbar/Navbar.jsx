@@ -1,8 +1,10 @@
 import { Fragment, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../context";
 import styles from "./Navbar.module.css"
 
 export const Navbar = () => {
+    const { user, logOutUser } = useAuth();
     const [isNavActive, setNavActive] = useState(false);
 
     const navLinkVisible = () => setNavActive(prevState => !prevState)
@@ -29,7 +31,10 @@ export const Navbar = () => {
                             <li className={`${styles.navLink}`}>
                                 <NavLink to="/account" activeStyle={activeStyle}>Account</NavLink>
                             </li>
-                            <button>Logout</button>
+                            {
+                                user && 
+                                <button onClick={() => logOutUser()}>Logout</button>
+                            }
                         </ul>
                     </div>
 

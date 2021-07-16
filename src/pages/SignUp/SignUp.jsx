@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context";
 import { errorNotification, successNotification } from "../../components";
@@ -7,6 +7,8 @@ import styles from "./SignUp.module.css";
 export default function SignUp() {
     const { signUpUser } = useAuth();
     const navigate = useNavigate();
+    const { state } = useLocation();
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -25,13 +27,14 @@ export default function SignUp() {
         return true
     }
 
-    const createAccount = async () => {
+    const createAccount = async (e) => {
+        e.preventDefault()
         if(validate()) {
             const { success, message } = await signUpUser({name, email, password});
             
             if(success) {
                 successNotification("Account Created!!");
-                navigate("/products")
+                navigate(state?.from ? state.from : "/", { replace: true });
             } else {
                 errorNotification(message);
             }
@@ -78,7 +81,7 @@ export default function SignUp() {
                             <span></span>
                         </div>
                         <button
-                            onClick={(e) => createAccount()}
+                            onClick={(e) => createAccount(e)}
                             className={`btn btn-secondary ${styles.formBtn}`}>
                                 Sign Up
                         </button>

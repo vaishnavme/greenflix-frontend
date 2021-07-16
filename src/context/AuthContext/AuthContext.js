@@ -18,7 +18,7 @@ export const AuthProvider = ({children}) => {
         axios.defaults.headers.common["Authorization"] = `${token}`;
     }
 
-    const logInUser = async (email, password) => {
+    const logInUser = async ({email, password}) => {
         try {
             const { data: {user, success, token} } = await axios.post(`/user/login`, {
                 email,
