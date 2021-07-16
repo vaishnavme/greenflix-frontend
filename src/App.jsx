@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "./context";
-import { Home, Likedvideos, Watchlater ,VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
+import { Home, Playlists ,VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
 import { Navbar, PrivateRoute } from "./components";
 import { ToastContainer, Slide } from "react-toastify";
 
@@ -17,8 +17,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp/>}/>
               <Route path="*" element={<NotFound />} />
-              <PrivateRoute path="/liked" login={user} element={<Likedvideos />}/>
-              <PrivateRoute path="/watch" login={user} element={<Watchlater />}/>
+              <PrivateRoute path="/playlist" login={user} element={<Playlists />}/>
               <PrivateRoute path="account" login={user} element={<Account />}/>
             </Routes>
         </div>
