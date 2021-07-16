@@ -1,28 +1,32 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../context";
-import { errorNotification, successNotification } from "../../components";
+import { errorNotification, successNotification, InputField } from "../../components";
 import styles from "./Login.module.css";
 
 export default function Login() {
-    const [userEmail, setUserEmail] = useState("");
-    const [userPassword, setUserPassword] = useState("");
+    const [logInCred, setLoginCred] = useState({});
     const { logInUser } = useAuth();
     const navigate = useNavigate();
     const { state } = useLocation();
+
+    const logInCredsHandler = (e) => {
+        const value = e.target.value;
+        setLoginCred({
+            ...logInCred,
+            [e.target.name] : value
+        })
+    }
     
-    const loginHandler = async (e) => {
-        e.preventDefault();
-        const { success } = await logInUser(
-            userEmail,
-            userPassword
-        )
+    const loginHandler = async() => {
+        const { success } = await logInUser(logInCred)
         if(success) {
             successNotification("Login Successfull!!")
             navigate(state?.from ? state.from : "/", { replace: true });
         } else {
             errorNotification("Error Ocuured")
         }
+        console.log(logInCred)
     }
 
     return (
@@ -33,27 +37,21 @@ export default function Login() {
                     <h4>Welcome Back</h4>
                 </div>
                 <div className={`${styles.body}`}>
-                    <form onSubmit={(e) =>loginHandler(e)}>
-                        <div className={`styled-input`}>
-                            <input
-                                onChange={(e) => setUserEmail(() => e.target.value)}
-                                value={userEmail}
-                                type="email" 
-                                placeholder="Enter your email" 
-                                required/>
-                            <span></span>
-                        </div>
-                        <div className={`styled-input`}>
-                            <input 
-                                onChange={(e) =>setUserPassword(() => e.target.value)}
-                                value={userPassword}
-                                type="password" 
-                                placeholder="Enter your password" 
-                                required/>
-                            <span></span>
-                        </div>
+                    <form>
+                        <InputField
+                            labelName={"Email"}
+                            type={"email"}
+                            name={"email"}
+                            onChangeOperation={logInCredsHandler}
+                        />
+                        <InputField
+                            labelName={"Password"}
+                            type={"password"}
+                            name={"password"}
+                            onChangeOperation={logInCredsHandler}
+                        />
                         <button
-                            type="submit"
+                            onClick={(e) => loginHandler(e)}
                             className={`btn btn-secondary ${styles.formBtn}`}>
                                 Log in
                         </button>
