@@ -7,31 +7,35 @@ import styles from "./SignUp.module.css";
 export default function SignUp() {
     const { signUpUser } = useAuth();
     const navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState({
-        name: "",
-        email: "",
-        password: ""
-    });
-    
-    const inputChangeHandler = (e) => {
-        e.preventDefault();
-        setUserInfo((prevState) => ({
-            ...prevState,
-            [e.target.name] : e.target.value
-        }))
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("")
+
+    const validate = () => {
+        if(!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/i.test(email)) {
+            setErrorMessage("Invalid Email address!")
+            return false
+        }
+        if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/i.test(password)) {
+            setErrorMessage("Must be atleast 8 characters long and contain 1 uppercase, lowercase letter and number.")
+            return false
+        }
+        setErrorMessage("")
+        return true
     }
 
-    const createAccount = async (e) => {
-        e.preventDefault();
-        const { success, message } = await signUpUser(userInfo);
-        
-        if(success) {
-            successNotification("Account Created!!");
-            navigate("/products")
-        } else {
-            errorNotification(message);
+    const createAccount = async () => {
+        if(validate()) {
+            const { success, message } = await signUpUser({name, email, password});
+            
+            if(success) {
+                successNotification("Account Created!!");
+                navigate("/products")
+            } else {
+                errorNotification(message);
+            }
         }
-        console.log("userinfo: ", userInfo)
     }
 
     return (
@@ -43,30 +47,30 @@ export default function SignUp() {
                 </div>
                 <div className={`${styles.body}`}>
                     <form>
-                        <div className={`styled-input`}>
-                            <input 
-                                onChange={inputChangeHandler}
-                                value={userInfo.name}
+                        <div className="mt-2 mb-2">
+                            <input
+                                className={`${styles.inputBox}`} 
+                                onChange={(e) => setName(e.target.value)}
                                 name="name"
                                 type="text" 
                                 placeholder="Your Name" 
                                 required/>
                             <span></span>
                         </div>
-                        <div className={`styled-input`}>
+                        <div className="mt-2 mb-2">
                             <input
-                                onChange={inputChangeHandler}
-                                value={userInfo.email}
+                                className={`${styles.inputBox}`}
+                                onChange={(e) => setEmail(e.target.value)}
                                 name="email"
                                 type="email" 
                                 placeholder="Enter your email" 
                                 required/>
                             <span></span>
                         </div>
-                        <div className={`styled-input`}>
+                        <div className="mt-2 mb-2">
                             <input 
-                                onChange={inputChangeHandler}
-                                value={userInfo.password}
+                                className={`${styles.inputBox}`}
+                                onChange={(e) => setPassword(e.target.value)}
                                 name="password"
                                 type="password" 
                                 placeholder="Enter your password" 
@@ -74,11 +78,15 @@ export default function SignUp() {
                             <span></span>
                         </div>
                         <button
-                            onClick={(e) => createAccount(e)}
-                            className={`btn btn-secondary ${styles.lognBtn}`}>
+                            onClick={(e) => createAccount()}
+                            className={`btn btn-secondary ${styles.formBtn}`}>
                                 Sign Up
                         </button>
                     </form>
+                    {
+                        errorMessage && 
+                        <p className="f-danger">{errorMessage}</p>
+                    }
                     <p>Already have an account? <Link className={`f-primary`} to="/login">Log in</Link> here</p>
                 </div>
             </div>
