@@ -15,7 +15,7 @@ export const Navbar = () => {
             <nav className={`${styles.navbar}`}>
                 <div className={`${styles.container}`}>
                     <div className={`${styles.brand}`}>
-                        GreenFlix
+                        <Link to="/">GreenFlix</Link>
                     </div>
 
                     <div className={`${styles.navContainer} ${isNavActive && styles.navActive}`}>
