@@ -39,8 +39,7 @@ export function DataProvider({children}) {
 
     const getUserData = async() => {
         try {
-            setLoading(true);
-            const { data: {likedvideos} } = await axios.get(`/liked/}`);
+            const {data: {likedvideos}} = await axios.get(`/liked`);
             dispatch({type: "SET_LIKED", payload: likedvideos})
         
             const { data: {watchlater} } = await axios.get(`/watchlater`);
@@ -48,10 +47,8 @@ export function DataProvider({children}) {
            
         } catch(err) {
             console.log(err);
-        } finally {
-            setLoading(false);
-        }
-    }
+        } 
+      } 
 
     useEffect(() => {
         getVideos();
@@ -61,7 +58,7 @@ export function DataProvider({children}) {
     useEffect(() => {
         token && getUserData();
         // eslint-disable-next-line
-    },[token, user])
+    },[])
 
     return (
         <DataContext.Provider value={{
