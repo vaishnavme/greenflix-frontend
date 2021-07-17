@@ -7,7 +7,8 @@ import { useAuth } from "../AuthContext/AuthContext";
 const initailState = {
     allVideos: [],
     LikedVideos: [],
-    watchlater: [],
+    WatchLater: [],
+    Playlist: []
 }
 
 const DataContext = createContext();
@@ -18,7 +19,8 @@ export function DataProvider({children}) {
     const [{
         allVideos, 
         LikedVideos, 
-        watchlater
+        WatchLater,
+        Playlist
     }, dispatch] = useReducer(dataReducer, initailState);
 
     // get initial data
@@ -39,10 +41,10 @@ export function DataProvider({children}) {
 
     const getUserData = async() => {
         try {
-            const {data: {likedvideos}} = await axios.get(`/liked`);
+            const {data: {likedvideos}} = await axios.get(`/playlist/liked`);
             dispatch({type: "SET_LIKED", payload: likedvideos})
         
-            const { data: {watchlaters} } = await axios.get(`/watchlater`);
+            const { data: {watchlaters} } = await axios.get(`/playlist/watch`);
             dispatch({type: "SET_WATCHLATER", payload: watchlaters})
            
         } catch(err) {
@@ -64,7 +66,8 @@ export function DataProvider({children}) {
         <DataContext.Provider value={{
             allVideos,
             LikedVideos,
-            watchlater,
+            WatchLater,
+            Playlist,
             dispatch,
             isLoading
         }}>

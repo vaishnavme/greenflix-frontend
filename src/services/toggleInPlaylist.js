@@ -5,7 +5,7 @@ export const toggleLikeVideos = async({
     video, action, dispatch
 }) => {
     try {
-        const {data: {success}} = await axios.post(`/liked/${video._id}`, {
+        const {data: {success}} = await axios.post(`/playlist/liked/${video._id}`, {
             type: action
         })
         if(success) {
@@ -27,7 +27,7 @@ export const toggleWatchLater = async({
     video, action, dispatch
 }) => {
     try {
-        const {data: {success}} = await axios.post(`/watchlater/${video._id}`, {
+        const {data: {success}} = await axios.post(`/playlist/watch/${video._id}`, {
             type: action
         })
         if(success) {

@@ -3,16 +3,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPlayer from "react-player";
 import { useData, useAuth, useLoader } from "../../context";
-import { LoginModal, Loader, alreadyExist } from "../../components";
+import { LoginModal, Loader, alreadyExist,InputField } from "../../components";
 import { toggleLikeVideos, toggleWatchLater } from "../../services/toggleInPlaylist";
 import styles from "./VideoPlayer.module.css";
 
 
 export default function VideoDetails() {
-    const { likedvideos, watchlater, dispatch } = useData();
+    const { LikedVideos, WatchLater, Playlist, dispatch } = useData();
     const { isLoading, setLoading } = useLoader();
     const [videoInfo, setVideoInfo] = useState();
     const [showModal, setShowModal] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
+    const [playlistName, setPlaylistName] = useState("")
     const { user } = useAuth();
     const { id } = useParams();
 
@@ -34,7 +36,7 @@ export default function VideoDetails() {
 
     const addToLiked = (videoInfo) => {
         user ? (
-            alreadyExist(likedvideos, videoInfo._id) ?
+            alreadyExist(LikedVideos, videoInfo._id) ?
             toggleLikeVideos({
                 video: videoInfo,
                 action: "REMOVE",
@@ -50,7 +52,7 @@ export default function VideoDetails() {
 
     const addToWatchLater = (videoInfo) => {
         user ? (
-            alreadyExist(watchlater, videoInfo._id) ?
+            alreadyExist(WatchLater, videoInfo._id) ?
             toggleWatchLater({
                 video: videoInfo,
                 action: "REMOVE",
@@ -64,45 +66,12 @@ export default function VideoDetails() {
         ) : setShowModal(true)
     }
 
-    // // check if video is in playlist
-    // const getPlayListById = (playListID) => 
-    //     playList.filter((playListItem) => playListItem.id === playListID)?.[0]
-    
-    // const isInPlayList = (playListID, videoId) => {
-    //     const playListName = getPlayListById(playListID)
-    //     return playListName.videos.find((video) => video._id === videoId)
-    // }
-    // const getPlayListByName = (playListName) =>
-    //     playList.filter((playListItem) => playListItem.name === playListName)?.[0]
-    
-    // // adding new playlist
-    // const createNewPlaylist = (e) => {
-    //     !getPlayListByName(newPlaylistName) && dispatch({
-    //         type: "NEW_PLAYLIST", 
-    //         payload:{newPlaylist: newPlaylistName,
-    //         videoInfo: videoInfo}
-    //     })
-    //     setNewPlaylistName("")
-    // }
-
-    // //toggle in playlist
-    // const toggleInPlaylist = (playListIDName) => {
-    //     user ?
-    //         dispatch({
-    //             type: "TOGGLE_IN_PLAYLIST",
-    //             payload: {
-    //                 playListID: playListIDName,
-    //                 videoInfo: videoInfo
-    //             }
-    //         }) : setShowLoginModal(true)
-    // }
-
-    // const toggleMenu = () => {
-    //     user ? setShowMenu(() => !showMenu) : setShowLoginModal(() => !showLoginModal)
-    // }
-
     const setModelVisibility = () => {
         setShowModal(() => !showModal);
+    }
+
+    const create = () => {
+        console.log(playlistName)
     }
 
     return (
@@ -139,59 +108,36 @@ export default function VideoDetails() {
                         <button 
                             className={`${styles.btnIcon}`}
                             onClick={() => addToLiked(videoInfo)}> 
-                                <i className={`bx ${alreadyExist(likedvideos, videoInfo._id) ? "bxs-heart" : "bx-heart"} `}></i>
+                                <i className={`bx ${alreadyExist(LikedVideos, videoInfo._id) ? "bxs-heart" : "bx-heart"} `}></i>
                         </button>
                         <button
                             className={`${styles.btnIcon}`}
                             onClick={() => addToWatchLater(videoInfo)}>
-                                <i className={`bx ${alreadyExist(watchlater, videoInfo._id) ? "bxs-stopwatch" : "bx-stopwatch"} `}></i>
+                                <i className={`bx ${alreadyExist(WatchLater, videoInfo._id) ? "bxs-stopwatch" : "bx-stopwatch"} `}></i>
                         </button>
-                        {/* <button 
-                            onClick={toggleMenu}
-                            className={`${styles.btnIcon}`}>
-                            <span className={`material-icons`}>playlist_add</span>
+                        <button
+                            className={`${styles.btnIcon}`}
+                            onClick={() => setShowMenu(prevState => !prevState)}>
+                                <i className="bx bxs-playlist"></i>
                         </button>
                         {
-                            showMenu && (
-                            <div className={`${styles.menu}`}>
-                                <ul className={`simple-list`}>
-                                { playList &&
-                                    playList.map((playListItem) => (
-                                        <li className={`h6`} key={playListItem.id}>
-                                            <input
-                                                className={`mr-2`}
-                                                type="checkbox"
-                                                checked={isInPlayList(playListItem.id, videoInfo._id)}
-                                                value={playListItem.id}
-                                                onChange={() => toggleInPlaylist(playListItem.id)}
-                                            />{playListItem.name}
-                                        </li>
-                                    ))
-                                }
-                                </ul>
-                                <div className={`${styles.menuHeader}`}>
-                                    <div className={`styled-input`}>
-                                        <input
-                                            className={`${styles.inputField}`}
-                                            onChange={(e) => setNewPlaylistName(e.target.value)}
-                                            type="text" 
-                                            placeholder="playlist"/>
-                                            <span></span>
-                                    </div>
-                                </div>
-                                <div className={`${styles.menuFooter}`}>
-                                    <button 
-                                        className={`btn btn-secondary w40`}
-                                        onClick={toggleMenu}>CLOSE
-                                    </button>
-                                    <button 
-                                        onClick={(e) => createNewPlaylist(e)}
-                                        className={`btn btn-secondary w40`}>CREATE
-                                    </button>
-                                </div>
+                            showMenu && 
+                            <div className={`modal`}>
+                                <div className={`modal-body`}>Create new playlist</div>
+                                <InputField
+                                    name="playlistName"
+                                    type="text"
+                                    labelName="Create Playlist" 
+                                    onChangeOperation={(e) => setPlaylistName(e.target.value)}
+                                />
+                                <button 
+                                    onClick={() => setShowMenu(prevState => !prevState)}
+                                    className={`btn btn-secondary`}>Cancel</button>
+                                <button 
+                                    onClick={() => create()}
+                                    className={`btn btn-secondary`}>Create</button>
                             </div>
-                            )
-                        } */}
+                        }
                     </div>
                 </div>
             </div> 
@@ -199,4 +145,3 @@ export default function VideoDetails() {
         </>
     )
 }
-

@@ -3,7 +3,7 @@ import { useData } from "../../context"
 import styles from "./Playlist.module.css";
 
 export default function Playlists() {
-    const { LikedVideos, watchlater } = useData();
+    const { LikedVideos, WatchLater } = useData();
     return (
         <div className={`${styles.main}`}>
             {
@@ -18,7 +18,7 @@ export default function Playlists() {
                 <div>
                     <div className={`h4`}>Liked Videos</div>
                     {
-                        <Link to={`/playlist/LikedVideos`}>
+                        <Link to={`/playlist/liked`}>
                             <div className={`${styles.thumbnail}`}>
                                 <img 
                                     className={`${styles.image}`} 
@@ -34,7 +34,7 @@ export default function Playlists() {
                 </div>
             }
             {
-                watchlater.length === 0 ?
+                WatchLater.length === 0 ?
                 <div>
                     <div className={`h4`}>Watch Later</div>
                     <div className={`${styles.emptyCard}`}>
@@ -45,16 +45,18 @@ export default function Playlists() {
                 <div>
                     <div className={`h4`}>Watch Later</div>
                     {
-                        <div className={`${styles.thumbnail}`}>
-                            <img 
-                                className={`${styles.image}`} 
-                                src={watchlater?.[0].image} 
-                                alt={watchlater?.[0].title}
-                            />  
-                            <div className={`${styles.overlay}`}>
-                                <p><i className='bx bxs-playlist h2'></i></p>
-                            </div>  
-                        </div>
+                        <Link to={`/playlist/watch`}>
+                            <div className={`${styles.thumbnail}`}>
+                                <img 
+                                    className={`${styles.image}`} 
+                                    src={WatchLater?.[0].image} 
+                                    alt={WatchLater?.[0].title}
+                                />  
+                                <div className={`${styles.overlay}`}>
+                                    <p><i className='bx bxs-playlist h2'></i></p>
+                                </div>  
+                            </div>
+                        </Link>
                     }
                 </div>
             }
