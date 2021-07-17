@@ -11,10 +11,10 @@ export const toggleLikeVideos = async({
         if(success) {
             if(action === "REMOVE") {
                 successRemoveNotification("Removed from Liked Videos!")
-                dispatch({type: "REMOVE_FROM_LIKED", payload: video._id})
+                dispatch({type: "REMOVE_FROM_LIKED", payload: video})
             } else {
                 successNotification("Added to Liked Videos!");
-                dispatch({type: "ADD_TO_LIKED", payload: video._id})
+                dispatch({type: "ADD_TO_LIKED", payload: video})
             }
         }
     } catch(err) {
@@ -33,10 +33,10 @@ export const toggleWatchLater = async({
         if(success) {
             if(action === "REMOVE") {
                 successRemoveNotification("Removed from Watchlater!")
-                dispatch({type: "REMOVE_FROM_WATCHLATER", payload: video._id})
+                dispatch({type: "REMOVE_FROM_WATCHLATER", payload: video})
             } else {
                 successNotification("Added to Watchlater!");
-                dispatch({type: "ADD_TO_WATCHLATER", payload: video._id})
+                dispatch({type: "ADD_TO_WATCHLATER", payload: video})
             }
         }
     } catch(err) {

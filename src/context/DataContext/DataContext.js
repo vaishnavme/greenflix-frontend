@@ -6,18 +6,18 @@ import { useAuth } from "../AuthContext/AuthContext";
 
 const initailState = {
     allVideos: [],
-    likedvideos: [],
+    LikedVideos: [],
     watchlater: [],
 }
 
 const DataContext = createContext();
 
 export function DataProvider({children}) {
-    const { user, token } = useAuth();
+    const { token } = useAuth();
     const { isLoading, setLoading } = useLoader();
     const [{
         allVideos, 
-        likedvideos, 
+        LikedVideos, 
         watchlater
     }, dispatch] = useReducer(dataReducer, initailState);
 
@@ -42,8 +42,8 @@ export function DataProvider({children}) {
             const {data: {likedvideos}} = await axios.get(`/liked`);
             dispatch({type: "SET_LIKED", payload: likedvideos})
         
-            const { data: {watchlater} } = await axios.get(`/watchlater`);
-            dispatch({type: "SET_WATCHLATER", payload: watchlater})
+            const { data: {watchlaters} } = await axios.get(`/watchlater`);
+            dispatch({type: "SET_WATCHLATER", payload: watchlaters})
            
         } catch(err) {
             console.log(err);
@@ -63,7 +63,7 @@ export function DataProvider({children}) {
     return (
         <DataContext.Provider value={{
             allVideos,
-            likedvideos,
+            LikedVideos,
             watchlater,
             dispatch,
             isLoading

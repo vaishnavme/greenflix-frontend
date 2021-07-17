@@ -139,16 +139,12 @@ export default function VideoDetails() {
                         <button 
                             className={`${styles.btnIcon}`}
                             onClick={() => addToLiked(videoInfo)}> 
-                                {alreadyExist(likedvideos, videoInfo._id) ? 
-                                <i className="bx bxs-heart"></i>
-                                : <i className="bx bx-heart"></i>}
+                                <i className={`bx ${alreadyExist(likedvideos, videoInfo._id) ? "bxs-heart" : "bx-heart"} `}></i>
                         </button>
                         <button
                             className={`${styles.btnIcon}`}
                             onClick={() => addToWatchLater(videoInfo)}>
-                                {alreadyExist(watchlater, videoInfo._id) ? 
-                                <i className="bx bxs-stopwatch"></i> 
-                                : <i className="bx bx-stopwatch"></i>}
+                                <i className={`bx ${alreadyExist(watchlater, videoInfo._id) ? "bxs-stopwatch" : "bx-stopwatch"} `}></i>
                         </button>
                         {/* <button 
                             onClick={toggleMenu}

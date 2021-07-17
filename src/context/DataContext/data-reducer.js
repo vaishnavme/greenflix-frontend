@@ -7,17 +7,17 @@ export const dataReducer = (state, {type, payload}) => {
             return {...state, allVideos: payload || []}
         
         case "SET_LIKED":
-            return {...state, likedvideos: payload || []}
+            return {...state, LikedVideos: payload || []}
         
         case "SET_WATCHLATER":
             return {...state, watchlater: payload || []}
 
         case "ADD_TO_LIKED": 
-            return {...state, likedvideos: state.likedvideos.concat(payload)}
+            return {...state, LikedVideos: state.LikedVideos.concat(payload)}
 
         case "REMOVE_FROM_LIKED":
             return {...state, 
-              likedvideos: state.likedvideos.filter((item) => item._id !== payload)}
+              LikedVideos: state.LikedVideos.filter((item) => item._id !== payload)}
         
         case "ADD_TO_WATCHLATER": 
             return {...state, watchlater: state.watchlater.concat(payload)}

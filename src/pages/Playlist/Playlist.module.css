@@ -1,0 +1,43 @@
+.main {
+    max-width: 85%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.thumbnail {
+    position: relative;
+    max-width: max-content;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    overflow: hidden;
+}
+.image {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 3;
+    background-color: #ffffff;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.emptyCard {
+    width: 500px;
+    max-width: 500px;
+    height: 287px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+}

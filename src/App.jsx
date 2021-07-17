@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "./context";
-import { Home, Playlists ,VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
+import { Home, Playlists, Playlistpage, VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
 import { Navbar, PrivateRoute } from "./components";
 import { ToastContainer, Slide } from "react-toastify";
 
@@ -19,6 +18,7 @@ function App() {
               <Route path="/signup" element={<SignUp/>}/>
               <Route path="*" element={<NotFound />} />
               <PrivateRoute path="/playlist" login={user} element={<Playlists />}/>
+              <PrivateRoute path="/playlist/:playlistName" login={user} element={<Playlistpage />}/>
               <PrivateRoute path="account" login={user} element={<Account />}/>
             </Routes>
         </div>
