@@ -1,27 +1,19 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useData, useAuth, useLoader } from "../../context";
-import { LoginModal, Loader, checkIn } from "../../components";
-import ReactPlayer from "react-player";
-import styles from "./VideoPlayer.module.css";
 import axios from "axios";
+import ReactPlayer from "react-player";
+import { useData, useAuth, useLoader } from "../../context";
+import { LoginModal, Loader, alreadyExist } from "../../components";
+import { toggleLikeVideos, toggleWatchLater } from "../../services/toggleInPlaylist";
+import styles from "./VideoPlayer.module.css";
+
 
 export default function VideoDetails() {
-    const {   
-        likedvideos, 
-        watchlater, 
-        addToLikedVideos,
-        removeLikedVideos,
-        addToWatchLater,
-        removeWatchlater
-    } = useData();
+    const { likedvideos, watchlater, dispatch } = useData();
     const { isLoading, setLoading } = useLoader();
-
-    const { user } = useAuth();
     const [videoInfo, setVideoInfo] = useState();
-    //const [newPlaylistName, setNewPlaylistName] = useState("");
-    const [showLoginModal, setShowLoginModal] = useState(false)
-    //const [showMenu, setShowMenu] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const { user } = useAuth();
     const { id } = useParams();
 
     // get videos details from params
@@ -29,10 +21,8 @@ export default function VideoDetails() {
         (async () => {
             try {
                 setLoading(true);
-                const {data: {success, video}} = await axios.get(`https://greenflix.herokuapp.com/videos/${id}`);
-                if(success) {
+                const {data: {video}} = await axios.get(`https://greenflix.herokuapp.com/videos/${id}`);
                     setVideoInfo(video)
-                }
                 setLoading(false);
             } catch(err) {
                 console.log(err);
@@ -42,27 +32,36 @@ export default function VideoDetails() {
         })();
     },[id, setLoading])
 
-    const quickActionHandler = (action, videoId, collection) => {
-        if(user) {
-            switch(action) {
-                case "LIKED":
-                    checkIn(collection, videoId) ?
-                        removeLikedVideos({videoId: videoId})
-                    : addToLikedVideos({videoId: videoId})
-                    break;
-                
-                case "WATCH":
-                    checkIn(collection, videoId) ?
-                        removeWatchlater({videoId: videoId})
-                    : addToWatchLater({videoId: videoId})
-                    break;
-                
-                default:
-                    break
-            }
-        } else {
-            setShowLoginModal(true)
-        }
+    const addToLiked = (videoInfo) => {
+        user ? (
+            alreadyExist(likedvideos, videoInfo._id) ?
+            toggleLikeVideos({
+                video: videoInfo,
+                action: "REMOVE",
+                dispatch
+            })
+            : toggleLikeVideos({
+                video: videoInfo,
+                action: "ADD",
+                dispatch
+            })
+        ) : setShowModal(true)
+    }
+
+    const addToWatchLater = (videoInfo) => {
+        user ? (
+            alreadyExist(watchlater, videoInfo._id) ?
+            toggleWatchLater({
+                video: videoInfo,
+                action: "REMOVE",
+                dispatch
+            })
+            : toggleWatchLater({
+                video: videoInfo,
+                action: "ADD",
+                dispatch
+            })
+        ) : setShowModal(true)
     }
 
     // // check if video is in playlist
@@ -102,10 +101,14 @@ export default function VideoDetails() {
     //     user ? setShowMenu(() => !showMenu) : setShowLoginModal(() => !showLoginModal)
     // }
 
+    const setModelVisibility = () => {
+        setShowModal(() => !showModal);
+    }
+
     return (
         <>
         {isLoading && <Loader/>}
-        {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal}/>}
+        {showModal && <LoginModal setModelVisibility={setModelVisibility}/>}
         {
             videoInfo &&
             <div className={`${styles.videoDetails}`}>
@@ -135,15 +138,15 @@ export default function VideoDetails() {
                     <div className={`${styles.aboutButtons}`}>
                         <button 
                             className={`${styles.btnIcon}`}
-                            onClick={() => quickActionHandler("LIKED", videoInfo._id, likedvideos)}> 
-                                {checkIn(likedvideos, videoInfo._id) ? 
+                            onClick={() => addToLiked(videoInfo)}> 
+                                {alreadyExist(likedvideos, videoInfo._id) ? 
                                 <i className="bx bxs-heart"></i>
                                 : <i className="bx bx-heart"></i>}
                         </button>
                         <button
                             className={`${styles.btnIcon}`}
-                            onClick={() => quickActionHandler("WATCH", videoInfo._id, watchlater)}>
-                                {checkIn(watchlater, videoInfo._id) ? 
+                            onClick={() => addToWatchLater(videoInfo)}>
+                                {alreadyExist(watchlater, videoInfo._id) ? 
                                 <i className="bx bxs-stopwatch"></i> 
                                 : <i className="bx bx-stopwatch"></i>}
                         </button>
