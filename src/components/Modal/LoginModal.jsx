@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 import styles from "./Modal.module.css";
 
-export const LoginModal = ({setShowLoginModal}) => {
+export const LoginModal = ({setModelVisibility}) => {
     return (
         <div className={`${styles.modalBox}`}>
             <div className={`${styles.loginModal}`}>
-                <h4>You need to be login.</h4>
+                <div className={`h5`}>Uh Oh!</div>
+                <div className={`h6`}>You need to be logged in</div>
                 <div className={`${styles.menuFooter}`}>
                     <button 
                         className={`btn btn-secondary w40`}
-                        onClick={() => setShowLoginModal(false)}>CLOSE
+                        onClick={() => setModelVisibility(false)}>CLOSE
                     </button>
                     <button className={`btn btn-secondary w40`}>
-                        <Link to="/login">Sign In</Link>
+                        <Link to="/login">Log In</Link>
                     </button>
                 </div>
             </div>
