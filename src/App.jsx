@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useAuth, useData } from "./context";
+import { useAuth } from "./context";
 import { Home, Playlists ,VideoDetails, Login, Account, SignUp, NotFound } from "./pages"
 import { Navbar, PrivateRoute } from "./components";
-import axios from "axios";
 import { ToastContainer, Slide } from "react-toastify";
 
 function App() {
