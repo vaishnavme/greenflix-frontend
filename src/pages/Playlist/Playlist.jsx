@@ -9,12 +9,7 @@ export default function Playlists() {
         <div className={`${styles.main}`}>
             {
                 LikedVideos.length === 0 ?
-                <div>
-                    <div className={`h4`}>Liked Videos</div>
-                    <div className={`${styles.emptyCard}`}>
-                        <div>No Liked Videos</div>
-                    </div>
-                </div>
+                null
                 :
                 <div>
                     <div className={`h4`}>Liked Videos</div>
@@ -36,12 +31,7 @@ export default function Playlists() {
             }
             {
                 WatchLater.length === 0 ?
-                <div>
-                    <div className={`h4`}>Watch Later</div>
-                    <div className={`${styles.emptyCard}`}>
-                        <div>Nothing in Watch Later</div>
-                    </div>
-                </div>
+                null
                 :
                 <div>
                     <div className={`h4`}>Watch Later</div>
@@ -63,12 +53,7 @@ export default function Playlists() {
             }
             {
                 Playlist.length === 0 ?
-                <div>
-                    <div className={`h4`}>User Playlists</div>
-                    <div className={`${styles.emptyCard}`}>
-                        <div>Nothing in Watch Later</div>
-                    </div>
-                </div>
+                null
                 :
                 <div>
                     <div className={`h4`}>User Playlists</div>

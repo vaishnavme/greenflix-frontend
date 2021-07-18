@@ -37,6 +37,7 @@
 .emptyCard {
     width: 30rem;
     height: 287px;
+    margin: auto;
     background-color: #f0f0f0;
     display: flex;
     justify-content: center;
