@@ -18,6 +18,8 @@ export default function VideoDetails() {
     const { user } = useAuth();
     const { videoId } = useParams();
 
+    console.log("watec ", WatchLater)
+
     const isInPlaylist = (playlistId) => {
         const playlist = Playlist.filter((item) => item._id === playlistId)?.[0];
         return playlist.video.find((videoItem) => videoItem._id === videoId)
