@@ -18,7 +18,7 @@ function App() {
               <Route path="/signup" element={<SignUp/>}/>
               <Route path="*" element={<NotFound />} />
               <PrivateRoute path="/playlist" login={user} element={<Playlists />}/>
-              <PrivateRoute path="/playlist/:playlistName" login={user} element={<Playlistpage />}/>
+              <PrivateRoute path="/playlist/:playlistId" login={user} element={<Playlistpage />}/>
               <PrivateRoute path="account" login={user} element={<Account />}/>
             </Routes>
         </div>
