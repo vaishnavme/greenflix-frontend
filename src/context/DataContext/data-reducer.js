@@ -48,7 +48,6 @@ export const dataReducer = (state, {type, payload}) => {
             }
 
         case "REMOVE_FROM_PLAYLIST":
-            console.log("remov ", payload.playlistId, payload.videoId)
             return {
                 ...state,
                 Playlist: state.Playlist.map((playlistItem) => 
@@ -58,6 +57,12 @@ export const dataReducer = (state, {type, payload}) => {
                         video: playlistItem.video.filter((videoItem) => videoItem._id !== payload.videoId)
                     } : playlistItem
                 )
+            }
+
+        case "DELETE_PLAYLIST":
+            return {
+                ...state,
+                Playlist: state.Playlist.filter((playlistItem) => playlistItem._id !== payload)
             }
 
         default:

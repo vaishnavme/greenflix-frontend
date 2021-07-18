@@ -38,3 +38,18 @@ export const addToPlaylist = async({playListId, video, dispatch}) => {
         console.log("error", err)
     }
 }
+
+export const deleteUserPlaylist = async({playListId, dispatch}) => {
+    console.log(playListId)
+    try {
+        const {data: {playlistId}} = await axios.delete(`/playlist/${playListId}`);
+        dispatch({type: "DELETE_PLAYLIST", payload: playlistId});
+        successRemoveNotification("Playlist deleted!")
+
+
+    } catch(err) {
+        errorNotification("Error Occured!")
+        console.log("error", err)
+    }
+}
+

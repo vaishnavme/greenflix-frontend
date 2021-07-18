@@ -1,2 +1,2 @@
-export { createPlaylist, addToPlaylist, removeFromPlaylist } from "./playlist.service";
+export { createPlaylist, addToPlaylist, removeFromPlaylist, deleteUserPlaylist } from "./playlist.service";
 export { toggleLikeVideos, toggleWatchLater} from "./toggleInPlaylist";

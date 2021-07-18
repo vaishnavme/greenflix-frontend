@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import { useData } from "../../context"
+import { deleteUserPlaylist } from "../../services";
 import styles from "./Playlist.module.css";
 
 export default function Playlists() {
-    const { LikedVideos, WatchLater, Playlist } = useData();
+    const { LikedVideos, WatchLater, Playlist, dispatch } = useData();
+
+    const deletePlaylist = async(playListId) => {
+        await deleteUserPlaylist({playListId, dispatch})
+    }
     return (
         <div className={`${styles.main}`}>
+            <div className={`${styles.block}`}>
             {
                 LikedVideos.length === 0 ?
                 null
@@ -50,17 +56,19 @@ export default function Playlists() {
                     }
                 </div>
             }
+            </div>
             {
                 Playlist.length === 0 ?
                 null
                 :
                 <div>
                     <div className={`h4`}>User Playlists</div>
+                    <div className={`${styles.block}`}>
                     {
                         Playlist.map((userPlaylist) => (
                             <div key={userPlaylist._id}>
                                 <div className={`h4`}>{userPlaylist.playlistName}</div>
-                                <Link  to={`/playlist/${userPlaylist._id}`}>
+                                <Link to={`/playlist/${userPlaylist._id}`}>
                                     <div className={`${styles.thumbnail}`}>
                                         <img 
                                             className={`${styles.image}`} 
@@ -72,9 +80,15 @@ export default function Playlists() {
                                         </div>
                                     </div>
                                 </Link>
+                                <button
+                                    onClick={() => deletePlaylist(userPlaylist._id)} 
+                                    className={`${styles.deleteBtn}`}>
+                                        Delete
+                                </button>
                             </div>
                         ))
                     }
+                    </div>
                 </div>
             }
         </div>
