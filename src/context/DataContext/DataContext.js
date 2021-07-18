@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLoader } from "..";
 import { dataReducer } from "./data-reducer";
 import { useAuth } from "../AuthContext/AuthContext";
+import { BASE_URI } from "../../api";
 
 const initailState = {
     allVideos: [],
@@ -27,7 +28,7 @@ export function DataProvider({children}) {
     const getVideos = async() => {
         try {
             setLoading(true);
-            const { data: {success, video} } = await axios.get(`/videos`);
+            const { data: {success, video} } = await axios.get(`${BASE_URI}/videos`);
             if(success) {
                 dispatch({type: "SET_DATA", payload: video})
             }
@@ -41,13 +42,13 @@ export function DataProvider({children}) {
 
     const getUserData = async() => {
         try {
-            const {data: {playlistVideos: likedvideos}} = await axios.get(`/playlist/liked`);
+            const {data: {playlistVideos: likedvideos}} = await axios.get(`${BASE_URI}/playlist/liked`);
             dispatch({type: "SET_LIKED", payload: likedvideos})
         
-            const { data: {playlistVideos: watchlaters} } = await axios.get(`/playlist/watch`);
+            const { data: {playlistVideos: watchlaters} } = await axios.get(`${BASE_URI}/playlist/watch`);
             dispatch({type: "SET_WATCHLATER", payload: watchlaters})
            
-            const { data: {playlists}} = await axios.get(`/playlist`);
+            const { data: {playlists}} = await axios.get(`${BASE_URI}/playlist`);
             dispatch({type: "SET_PLAYLIST", payload: playlists})
         } catch(err) {
             console.log(err);
