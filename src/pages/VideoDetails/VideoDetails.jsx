@@ -4,6 +4,7 @@ import axios from "axios";
 import ReactPlayer from "react-player";
 import { useData, useAuth, useLoader } from "../../context";
 import { LoginModal, Loader, alreadyExist,InputField } from "../../components";
+import { BASE_URI } from "../../api";
 import { toggleLikeVideos, toggleWatchLater, createPlaylist, addToPlaylist, removeFromPlaylist } from "../../services";
 import styles from "./VideoPlayer.module.css";
 
@@ -28,7 +29,7 @@ export default function VideoDetails() {
         (async () => {
             try {
                 setLoading(true);
-                const {data: {video}} = await axios.get(`https://greenflix.herokuapp.com/videos/${videoId}`);
+                const {data: {video}} = await axios.get(`${BASE_URI}/videos/${videoId}`);
                     setVideoInfo(video)
                 setLoading(false);
             } catch(err) {

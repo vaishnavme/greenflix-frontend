@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useLoader } from "../../context";
 import { VideoCard, Loader } from "../../components";
 import axios from "axios";
+import { BASE_URI } from "../../api";
 import styles from "./Playlistpage.module.css"
 
 export default function Playlistpage() {
@@ -16,7 +17,7 @@ export default function Playlistpage() {
         (async () => {
             try {
                 setLoading(true);
-                const {data: {playlistVideos}} = await axios.get(`/playlist/${playlistId}`);
+                const {data: {playlistVideos}} = await axios.get(`${BASE_URI}/playlist/${playlistId}`);
                 setCurrentVideoList(playlistVideos)
                 setLoading(false);
             } catch(err) {

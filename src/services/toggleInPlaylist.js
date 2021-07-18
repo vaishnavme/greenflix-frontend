@@ -1,11 +1,12 @@
 import axios from "axios";
+import { BASE_URI } from "../api";
 import { successNotification, successRemoveNotification, errorNotification } from "../components";
 
 export const toggleLikeVideos = async({
     video, action, dispatch
 }) => {
     try {
-        const {data: {success}} = await axios.post(`/playlist/liked/${video._id}`, {
+        const {data: {success}} = await axios.post(`${BASE_URI}/playlist/liked/${video._id}`, {
             type: action
         })
         if(success) {
@@ -27,7 +28,7 @@ export const toggleWatchLater = async({
     video, action, dispatch
 }) => {
     try {
-        const {data: {success}} = await axios.post(`/playlist/watch/${video._id}`, {
+        const {data: {success}} = await axios.post(`${BASE_URI}/playlist/watch/${video._id}`, {
             type: action
         })
         if(success) {

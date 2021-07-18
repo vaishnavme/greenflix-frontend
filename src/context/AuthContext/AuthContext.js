@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { BASE_URI } from "../../api";
 import { errorNotification } from "../../components";
 
 const AuthContext = createContext();
@@ -19,7 +20,7 @@ export const AuthProvider = ({children}) => {
 
     const logInUser = async ({email, password}) => {
         try {
-            const { data: {user, success, token} } = await axios.post(`/user/login`, {
+            const { data: {user, success, token} } = await axios.post(`${BASE_URI}/user/login`, {
                 email,
                 password
             })
@@ -40,7 +41,7 @@ export const AuthProvider = ({children}) => {
 
     const signUpUser = async({name, email, password}) => {
         try {
-            const { data: {success, user, token, message} } = await axios.post(`/user/signup`, {
+            const { data: {success, user, token, message} } = await axios.post(`${BASE_URI}/user/signup`, {
                 name: name,
                 email: email,
                 password: password
