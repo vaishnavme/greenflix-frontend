@@ -3,7 +3,8 @@ import { useData } from "../../context"
 import styles from "./Playlist.module.css";
 
 export default function Playlists() {
-    const { LikedVideos, WatchLater } = useData();
+    const { LikedVideos, WatchLater, Playlist } = useData();
+    console.log(Playlist)
     return (
         <div className={`${styles.main}`}>
             {
@@ -26,7 +27,7 @@ export default function Playlists() {
                                     alt={LikedVideos?.[0].title}
                                 />  
                                 <div className={`${styles.overlay}`}>
-                                    <p><i className='bx bxs-playlist h2'></i></p>
+                                    <p><i className='bx bxs-playlist h2'></i><span>{LikedVideos?.length}</span></p>
                                 </div>  
                             </div>
                         </Link>
@@ -53,10 +54,42 @@ export default function Playlists() {
                                     alt={WatchLater?.[0].title}
                                 />  
                                 <div className={`${styles.overlay}`}>
-                                    <p><i className='bx bxs-playlist h2'></i></p>
+                                    <p><i className='bx bxs-playlist h2'></i><span>{WatchLater?.length}</span></p>
                                 </div>  
                             </div>
                         </Link>
+                    }
+                </div>
+            }
+            {
+                Playlist.length === 0 ?
+                <div>
+                    <div className={`h4`}>User Playlists</div>
+                    <div className={`${styles.emptyCard}`}>
+                        <div>Nothing in Watch Later</div>
+                    </div>
+                </div>
+                :
+                <div>
+                    <div className={`h4`}>User Playlists</div>
+                    {
+                        Playlist.map((userPlaylist) => (
+                            <div key={userPlaylist._id}>
+                                <div className={`h4`}>{userPlaylist.playlistName}</div>
+                                <Link  to={`/playlist/${userPlaylist._id}`}>
+                                    <div className={`${styles.thumbnail}`}>
+                                        <img 
+                                            className={`${styles.image}`} 
+                                            src={userPlaylist?.video[0].image} 
+                                            alt={userPlaylist?.video[0].title}
+                                        />  
+                                        <div className={`${styles.overlay}`}>
+                                            <p><i className='bx bxs-playlist h2'></i><span>{userPlaylist?.video.length}</span></p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))
                     }
                 </div>
             }
