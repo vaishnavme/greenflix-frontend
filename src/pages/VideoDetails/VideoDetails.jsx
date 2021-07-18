@@ -4,7 +4,7 @@ import axios from "axios";
 import ReactPlayer from "react-player";
 import { useData, useAuth, useLoader } from "../../context";
 import { LoginModal, Loader, alreadyExist,InputField } from "../../components";
-import { toggleLikeVideos, toggleWatchLater } from "../../services/toggleInPlaylist";
+import { toggleLikeVideos, toggleWatchLater, createPlaylist, addToPlaylist, removeFromPlaylist } from "../../services";
 import styles from "./VideoPlayer.module.css";
 
 
@@ -16,14 +16,19 @@ export default function VideoDetails() {
     const [showMenu, setShowMenu] = useState(false);
     const [playlistName, setPlaylistName] = useState("")
     const { user } = useAuth();
-    const { id } = useParams();
+    const { videoId } = useParams();
+
+    const isInPlaylist = (playlistId) => {
+        const playlist = Playlist.filter((item) => item._id === playlistId)?.[0];
+        return playlist.video.find((videoItem) => videoItem._id === videoId)
+    }
 
     // get videos details from params
     useEffect(() => {
         (async () => {
             try {
                 setLoading(true);
-                const {data: {video}} = await axios.get(`https://greenflix.herokuapp.com/videos/${id}`);
+                const {data: {video}} = await axios.get(`https://greenflix.herokuapp.com/videos/${videoId}`);
                     setVideoInfo(video)
                 setLoading(false);
             } catch(err) {
@@ -32,7 +37,7 @@ export default function VideoDetails() {
                 setLoading(false);
             }
         })();
-    },[id, setLoading])
+    },[videoId, setLoading])
 
     const addToLiked = (videoInfo) => {
         user ? (
@@ -66,12 +71,31 @@ export default function VideoDetails() {
         ) : setShowModal(true)
     }
 
-    const setModelVisibility = () => {
-        setShowModal(() => !showModal);
+    const createNewPlaylist = async() => {
+        await createPlaylist({
+            playlistName: playlistName,
+            video: videoInfo,
+            dispatch
+        })
     }
 
-    const create = () => {
-        console.log(playlistName)
+    const toggleInPlaylist = async(playlistId) => {
+        isInPlaylist(playlistId, videoId) ?
+        await removeFromPlaylist({
+            playListId: playlistId,
+            video: videoInfo,
+            dispatch
+        })
+        :
+        await addToPlaylist({
+            playListId: playlistId,
+            video: videoInfo,
+            dispatch
+        })
+    }
+
+    const setModelVisibility = () => {
+        setShowModal(() => !showModal);
     }
 
     return (
@@ -122,20 +146,42 @@ export default function VideoDetails() {
                         </button>
                         {
                             showMenu && 
-                            <div className={`modal`}>
-                                <div className={`modal-body`}>Create new playlist</div>
-                                <InputField
-                                    name="playlistName"
-                                    type="text"
-                                    labelName="Create Playlist" 
-                                    onChangeOperation={(e) => setPlaylistName(e.target.value)}
-                                />
-                                <button 
-                                    onClick={() => setShowMenu(prevState => !prevState)}
-                                    className={`btn btn-secondary`}>Cancel</button>
-                                <button 
-                                    onClick={() => create()}
-                                    className={`btn btn-secondary`}>Create</button>
+                            <div className={`${styles.modal}`}>
+                                <div className={`${styles.body}`}>
+                                    <div className={`${styles.header}`}>
+                                        <div className={`text-center`}>Create new playlist</div>
+                                        <ul>
+                                            {   Playlist &&
+                                                Playlist?.map((playlistItem) => (
+                                                    <li key={playlistItem._id} className={`${styles.playlist}`}>
+                                                        <input 
+                                                            checked={!!isInPlaylist(playlistItem._id)}
+                                                            type="checkbox" 
+                                                            onChange={() => toggleInPlaylist(playlistItem._id)}
+                                                        />
+                                                        <p className={`pl-1`}>{playlistItem.playlistName}</p>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <InputField
+                                            name="playlistName"
+                                            type="text"
+                                            labelName="Create Playlist" 
+                                            onChangeOperation={(e) => setPlaylistName(e.target.value)}
+                                        />
+                                        <div className={`${styles.action}`}>
+                                            <button 
+                                                onClick={() => setShowMenu(prevState => !prevState)}
+                                                className={`btn btn-secondary`}>Cancel</button>
+                                            <button 
+                                                onClick={() => createNewPlaylist()}
+                                                className={`btn btn-secondary`}>Create</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         }
                     </div>

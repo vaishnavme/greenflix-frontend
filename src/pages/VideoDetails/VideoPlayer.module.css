@@ -90,3 +90,25 @@
     height: calc((100vw - 0rem) * 0.5625) !important;
     width: calc(100vw - 0rem);
 }
+.modal {
+    width: 20rem;
+    height: 15rem;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+}
+.body {
+    height: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.playlist {
+    display: flex;
+    align-items: center;
+}
+.action {
+    display: flex;
+    justify-content: space-around;
+}
