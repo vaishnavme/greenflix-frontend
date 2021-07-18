@@ -11,6 +11,9 @@ export const dataReducer = (state, {type, payload}) => {
         
         case "SET_WATCHLATER":
             return {...state, WatchLater: payload || []}
+        
+        case "SET_PLAYLIST":
+            return {...state, Playlist: payload || []}
 
         case "ADD_TO_LIKED": 
             return {...state, LikedVideos: state.LikedVideos.concat(payload)}
@@ -25,6 +28,40 @@ export const dataReducer = (state, {type, payload}) => {
         case "REMOVE_FROM_WATCHLATER":
             return {...state, 
                 WatchLater: state.WatchLater.filter((item) => item._id !== payload)}
+
+        case "CREATE_PLAYLIST": 
+            return {
+                ...state,
+                Playlist: [
+                    ...state.Playlist,
+                    payload
+                ]
+            }
+        
+        case "ADD_TO_PLAYLIST": 
+            return {
+                ...state,
+                Playlist: state.Playlist.map((playlistItem) => 
+                    playlistItem._id === payload.playlistId 
+                    ? {
+                        ...playlistItem,
+                        video: [...playlistItem.video, payload.video]
+                    } : playlistItem
+                )
+            }
+
+        case "REMOVE_FROM_PLAYLIST":
+            console.log("remov ", payload.playlistId, payload.videoId)
+            return {
+                ...state,
+                Playlist: state.Playlist.map((playlistItem) => 
+                    playlistItem._id === payload.playlistId 
+                    ? {
+                        ...playlistItem,
+                        video: playlistItem.video.filter((videoItem) => videoItem._id !== payload.videoId)
+                    } : playlistItem
+                )
+            }
 
         default:
             return state
