@@ -4,7 +4,6 @@ import styles from "./Playlist.module.css";
 
 export default function Playlists() {
     const { LikedVideos, WatchLater, Playlist } = useData();
-    console.log(Playlist)
     return (
         <div className={`${styles.main}`}>
             {

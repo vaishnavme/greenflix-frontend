@@ -7,7 +7,9 @@ import styles from "./Playlistpage.module.css"
 
 export default function Playlistpage() {
     const [currentVideoList, setCurrentVideoList] = useState(null);
+    const [errorMessage, setErrorMessage] = useState("")
     const { isLoading, setLoading } = useLoader();
+    
     const { playlistId } = useParams();
 
     useEffect(() => {
@@ -18,6 +20,7 @@ export default function Playlistpage() {
                 setCurrentVideoList(playlistVideos)
                 setLoading(false);
             } catch(err) {
+                setErrorMessage(err)
                 console.log(err);
             } finally {
                 setLoading(false);
@@ -28,6 +31,12 @@ export default function Playlistpage() {
     return (
         <div>
             {isLoading && <Loader/>}
+            <div className="text-center">
+                {
+                    errorMessage && 
+                    <p className="f-danger">{errorMessage}</p>
+                }
+            </div>
             <div className={`${styles.videoGrid}`}>
                 {
                     currentVideoList &&
