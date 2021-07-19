@@ -38,12 +38,9 @@ export const Navbar = () => {
                             </li>
 
                             }
-                            <li className={`${styles.navLink}`}>
-                                <NavLink to="/account" activeStyle={activeStyle}>Account</NavLink>
-                            </li>
                             {
                                 user && 
-                                <button onClick={() => logOutUser()}>Logout</button>
+                                <button className={`ml-1`} onClick={() => logOutUser()}>Logout</button>
                             }
                         </ul>
                     </div>
