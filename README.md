@@ -26,6 +26,11 @@ Theme - Youtube and Gardening
 - Mongoose
 - JWT (Json Web Tokens)
 
+> ### Dummy Login Creds
+>
+> **Email**: `johnsnow@dev.com`
+> **Password**: `Password@123`
+
 #### Source Code and Hosting
 
 **Netlify**
