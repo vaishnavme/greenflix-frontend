@@ -29,6 +29,21 @@ export default function Login() {
         }
     }
 
+    const loginAsGuest = async(e) => {
+        e.preventDefault();
+        let logInCred = {
+            email: "johnsnow@dev.com",
+            password: "Password@123"
+        }
+        const { success } = await logInUser(logInCred)
+        if(success) {
+            successNotification("Login Successfull!!")
+            navigate(state?.from ? state.from : "/", { replace: true });
+        } else {
+            errorNotification("Error Ocuured")
+        }
+    }
+
     return (
         <div className={`${styles.main}`}>
             <div className={`${styles.card} p-2`}>
@@ -54,6 +69,11 @@ export default function Login() {
                             onClick={(e) => loginHandler(e)}
                             className={`btn btn-secondary ${styles.formBtn}`}>
                                 Log in
+                        </button>
+                        <button
+                            onClick={(e) => loginAsGuest(e)}
+                            className={`btn btn-secondary ${styles.formBtn}`}>
+                                Login As Guest
                         </button>
                     </form>
                     <p>Don't have account? <Link className="f-primary" to="/signup">Sign Up</Link> here</p>
