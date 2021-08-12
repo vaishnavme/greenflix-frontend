@@ -4,13 +4,13 @@ import { successNotification, successRemoveNotification, errorNotification } fro
 
 export const createPlaylist = async({playlistName, video, dispatch}) => {
     try {
-        const {data: {success, playlist}} = await axios.post(`${BASE_URI}/playlist/create/${video._id}`, {
+        const response = await axios.post(`${BASE_URI}/playlist/create/${video._id}`, {
             playlistName
         });
-        if(success) {
-            successNotification("New Playlist Created");
-            dispatch({type: "CREATE_PLAYLIST", payload: playlist})
-        }
+
+        successNotification("New Playlist Created");
+        dispatch({type: "CREATE_PLAYLIST", payload: response.data.playlist})
+
     } catch(err) {
         errorNotification("Error Occured!")
         console.log("error", err)
@@ -41,7 +41,6 @@ export const addToPlaylist = async({playListId, video, dispatch}) => {
 }
 
 export const deleteUserPlaylist = async({playListId, dispatch}) => {
-    console.log(playListId)
     try {
         const {data: {playlistId}} = await axios.delete(`${BASE_URI}/playlist/${playListId}`);
         dispatch({type: "DELETE_PLAYLIST", payload: playlistId});

@@ -24,15 +24,13 @@ export const AuthProvider = ({children}) => {
                 email,
                 password
             })
-            
-            if(success) {
-                setUser(user);
-                setToken(token);
-                axios.defaults.headers.common["Authorization"] = token
-                localStorage.setItem("authUser", JSON.stringify(user));
-                localStorage.setItem("authToken", JSON.stringify(token));
-            }
+            setUser(user);
+            setToken(token);
+            axios.defaults.headers.common["Authorization"] = token
+            localStorage.setItem("authUser", JSON.stringify(user));
+            localStorage.setItem("authToken", JSON.stringify(token));
             return { user, success };
+
         } catch (err) {
             errorNotification("Error Occured!")
             console.log(err);
@@ -46,17 +44,15 @@ export const AuthProvider = ({children}) => {
                 email: email,
                 password: password
             })
-            if(success) {
-                console.log("token");
-                setUser(user);
-                setToken(token);
-                axios.defaults.headers.common["Authorization"] = token
-                localStorage.setItem("authUser", JSON.stringify(user));
-                localStorage.setItem("authToken", JSON.stringify(token));
-            } 
+            setUser(user);
+            setToken(token);
+            axios.defaults.headers.common["Authorization"] = token
+            localStorage.setItem("authUser", JSON.stringify(user));
+            localStorage.setItem("authToken", JSON.stringify(token));
             return { success, message };
         } catch (err) {
             console.log(err);
+            errorNotification("Error Occured while creating account")
         }
     }
 
