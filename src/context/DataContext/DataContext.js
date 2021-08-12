@@ -42,10 +42,10 @@ export function DataProvider({children}) {
     const getUserData = async() => {
         try {
             const {data: {playlistVideos: likedvideos}} = await axios.get(`${BASE_URI}/playlist/liked`);
-            dispatch({type: "SET_LIKED", payload: likedvideos})
+            dispatch({type: "SET_LIKED", payload: likedvideos.video})
         
             const { data: {playlistVideos: watchlaters} } = await axios.get(`${BASE_URI}/playlist/watch`);
-            dispatch({type: "SET_WATCHLATER", payload: watchlaters})
+            dispatch({type: "SET_WATCHLATER", payload: watchlaters.video})
            
             const { data: {playlists}} = await axios.get(`${BASE_URI}/playlist`);
             dispatch({type: "SET_PLAYLIST", payload: playlists})

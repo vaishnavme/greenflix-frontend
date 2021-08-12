@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
 import { useData } from "../../context"
-import { deleteUserPlaylist } from "../../services";
 import styles from "./Playlist.module.css";
 
 export default function Playlists() {
-    const { LikedVideos, WatchLater, Playlist, dispatch } = useData();
+    const { LikedVideos, WatchLater, Playlist } = useData();
 
-    const deletePlaylist = async(playListId) => {
-        await deleteUserPlaylist({playListId, dispatch})
-    }
     return (
         <div className={`${styles.main}`}>
             <div className={`${styles.block}`}>
@@ -80,11 +76,6 @@ export default function Playlists() {
                                         </div>
                                     </div>
                                 </Link>
-                                <button
-                                    onClick={() => deletePlaylist(userPlaylist._id)} 
-                                    className={`${styles.deleteBtn}`}>
-                                        Delete
-                                </button>
                             </div>
                         ))
                     }

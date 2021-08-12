@@ -13,3 +13,20 @@
         display: flex;
     }
 }
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.deleteBtn {
+    color: var(--red);
+    padding: 1px 3px;
+    border: 1px solid var(--red);
+}
+.deleteBtn:hover {
+    color: var(--white);
+    background-color: var(--red);
+}
