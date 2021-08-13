@@ -1,13 +1,19 @@
 import { Fragment, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../../context";
+import { useAuth, useData } from "../../context";
 import styles from "./Navbar.module.css"
 
 export const Navbar = () => {
     const { user, logOutUser } = useAuth();
+    const { dispatch } = useData();
     const [isNavActive, setNavActive] = useState(false);
 
     const navLinkVisible = () => setNavActive(prevState => !prevState)
+
+    const logout = () => {
+        logOutUser();
+        dispatch({type: "LOGOUT_USER_STATES"})
+    }
 
     const activeStyle = {
         color: "#22C55E"
@@ -40,7 +46,7 @@ export const Navbar = () => {
                             }
                             {
                                 user && 
-                                <button className={`ml-1`} onClick={() => logOutUser()}>Logout</button>
+                                <button className={`ml-1`} onClick={() => logout()}>Logout</button>
                             }
                         </ul>
                     </div>

@@ -9,23 +9,23 @@ export default function SignUp() {
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    const [userInfo, setUserInfo] = useState({});
+    const [signupCread, setSignupCread] = useState({});
     const [errorMessage, setErrorMessage] = useState("")
 
     const inputChangeHandler = (e) => {
         e.preventDefault();
-        setUserInfo((prevState) => ({
+        setSignupCread((prevState) => ({
             ...prevState,
             [e.target.name] : e.target.value
         }))
     }
 
     const validate = () => {
-        if(!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/i.test(userInfo.email)) {
+        if(!/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/i.test(signupCread.email)) {
             setErrorMessage("Invalid Email address!")
             return false
         }
-        if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/i.test(userInfo.password)) {
+        if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/i.test(signupCread.password)) {
             setErrorMessage("Must be atleast 8 characters long and contain 1 uppercase, lowercase letter and number.")
             return false
         }
@@ -36,7 +36,7 @@ export default function SignUp() {
     const createAccount = async (e) => {
         e.preventDefault()
         if(validate()) {
-            const { success, message } = await signUpUser(userInfo);
+            const { success, message } = await signUpUser(signupCread);
             
             if(success) {
                 successNotification("Account Created!!");

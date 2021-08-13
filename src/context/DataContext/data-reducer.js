@@ -1,5 +1,19 @@
+export const initailState = {
+    allVideos: [],
+    LikedVideos: [],
+    WatchLater: [],
+    Playlist: []
+}
+
 export const dataReducer = (state, {type, payload}) => {
     switch(type) {
+        case "LOGOUT_USER_STATES": 
+            return { 
+                ...state, 
+                LikedVideos: [],
+                WatchLater: [],
+                Playlist: []
+            }
         case "SET_DATA":
             return {...state, allVideos: payload || []}
         

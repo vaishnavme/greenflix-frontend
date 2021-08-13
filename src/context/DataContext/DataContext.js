@@ -1,16 +1,9 @@
 import { useContext ,createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import { useLoader } from "..";
-import { dataReducer } from "./data-reducer";
+import { initailState, dataReducer } from "./data-reducer";
 import { useAuth } from "../AuthContext/AuthContext";
 import { BASE_URI } from "../../api";
-
-const initailState = {
-    allVideos: [],
-    LikedVideos: [],
-    WatchLater: [],
-    Playlist: []
-}
 
 const DataContext = createContext();
 
@@ -62,7 +55,7 @@ export function DataProvider({children}) {
     useEffect(() => {
         token && getUserData();
         // eslint-disable-next-line
-    },[])
+    },[token])
 
     return (
         <DataContext.Provider value={{
