@@ -1,0 +1,32 @@
+.videoGrid {
+    display: flex;
+    flex-wrap: wrap;
+}
+@media screen and (max-width: 768px) {
+    .videoGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 640px) {
+    .videoGrid {
+        display: flex;
+    }
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.deleteBtn {
+    color: var(--red);
+    padding: 1px 3px;
+    border: 1px solid var(--red);
+}
+.deleteBtn:hover {
+    color: var(--white);
+    background-color: var(--red);
+}

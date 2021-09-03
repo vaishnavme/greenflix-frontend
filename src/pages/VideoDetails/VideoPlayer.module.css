@@ -1,0 +1,114 @@
+.videoDetails {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: #fcfcfc;
+}
+.about {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.aboutInfo {
+    max-width: 60%;
+    margin: 1rem;
+}
+.aboutAction {
+    width: 100%;
+    margin: 1rem;
+}
+.title {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.description {
+    color: #6d6d6d;
+}
+.channel {
+    display: flex;
+    align-items: center;
+}
+.channelProfile {
+    max-width: 3rem;
+    height: auto;
+    border-radius: 50%;
+    border: 5px solid #eff2ff;
+}
+.channelName {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+}
+.btnIcon {
+    cursor: pointer;
+    background: none;
+    background-color: var(--primary-light);
+    border: none;
+    padding: 0.5rem 0.7rem;
+    margin: 1rem 0.5rem;
+}
+
+.menu {
+    z-index: 2;
+    max-width: 18rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.menuHeader {
+    display: flex;
+    align-items: center;
+}
+.menuFooter {
+    display: flex;
+    justify-content: space-around;
+}
+@media screen and (max-width: 768px) {
+    .about {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .aboutInfo {
+        max-width: 100%;
+    }
+    .aboutAction {
+        padding: 0 1rem;
+    }
+    .menu {
+        background-color: var(--white);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+@media screen and (max-width: 668px) {
+    .about {
+        padding: 0.5rem;
+    }
+}
+.reactPlayer {
+    margin: 0 auto;
+    height: calc((100vw - 0rem) * 0.5625) !important;
+    width: calc(100vw - 0rem);
+}
+.modal {
+    width: 20rem;
+    height: 15rem;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+}
+.body {
+    height: 14rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.playlist {
+    display: flex;
+    align-items: center;
+}
+.action {
+    display: flex;
+    justify-content: space-around;
+}

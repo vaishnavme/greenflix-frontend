@@ -1,0 +1,26 @@
+.card {
+    margin: auto 1rem 2rem;
+    max-width: 21rem;
+    height: 16rem;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    border: 1px solid var(--light-gray);
+}
+.thumbnail {
+    width: 100%;
+    max-width: inherit;
+}
+.cardBody {
+    padding: 0.5rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 640px) {
+    .card {
+        max-width: 100%;
+        height: auto;
+    }
+}

@@ -1,13 +1,34 @@
-body {
+@import url("https://icyui.netlify.app/style/main.css");
+@import "react-toastify/dist/ReactToastify.min.css";
+
+:root {
+  --white: #ffffff;
+  --light-gray: #E2E8F0;
+  --red: #DC2626;
+  --shadow:rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--white);
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+button {
+  border: none;
+  background: none;
+}
+.main {
+  width: 100%;
+  margin: 1rem auto;
+  padding: 0.5rem;
 }

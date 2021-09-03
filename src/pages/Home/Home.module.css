@@ -1,0 +1,15 @@
+.videoGrid {
+    display: flex;
+    flex-wrap: wrap;
+}
+@media screen and (max-width: 768px) {
+    .videoGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 640px) {
+    .videoGrid {
+        display: flex;
+    }
+}
