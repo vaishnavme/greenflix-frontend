@@ -1,34 +1,32 @@
-@import url("https://icyui.netlify.app/style/main.css");
-@import "react-toastify/dist/ReactToastify.min.css";
+@import 'react-toastify/dist/ReactToastify.min.css';
 
 :root {
-  --white: #ffffff;
-  --light-gray: #E2E8F0;
-  --red: #DC2626;
-  --shadow:rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    --white: #ffffff;
+    --light-gray: #e2e8f0;
+    --red: #dc2626;
+    --box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    --border-radius: 0.2rem;
 }
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--white);
 }
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 button {
-  border: none;
-  background: none;
+    cursor: pointer;
 }
 .main {
-  width: 100%;
-  margin: 1rem auto;
-  padding: 0.5rem;
+    margin: 5rem 0 2rem 15rem;
+    padding: 1rem;
 }
