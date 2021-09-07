@@ -95,7 +95,7 @@ export const Navbar = () => {
     return (
         <>
             <header className={styles.header}>
-                <h3>GreenFlix</h3>
+                <h3 className={styles.brand}>GreenFlix</h3>
             </header>
             <nav className={styles.nav}>
                 <ul className={styles.navItem}>
