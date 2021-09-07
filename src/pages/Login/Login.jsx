@@ -69,22 +69,24 @@ export default function Login() {
                             name={'password'}
                             onChangeOperation={logInCredsHandler}
                         />
-                        <button
-                            onClick={(e) => loginHandler(e)}
-                            className={`btn btn-secondary ${styles.formBtn}`}
-                        >
-                            Log in
-                        </button>
-                        <button
-                            onClick={(e) => loginAsGuest(e)}
-                            className={`btn btn-secondary ${styles.formBtn}`}
-                        >
-                            Login As Guest
-                        </button>
+                        <div className={styles.action}>
+                            <button
+                                onClick={(e) => loginHandler(e)}
+                                className={`${styles.btn} ${styles.secondary}`}
+                            >
+                                Log in
+                            </button>
+                            <button
+                                onClick={(e) => loginAsGuest(e)}
+                                className={`${styles.btn} ${styles.primary}`}
+                            >
+                                Login As Guest
+                            </button>
+                        </div>
                     </form>
                     <p>
                         Don't have account?{' '}
-                        <Link className="f-primary" to="/signup">
+                        <Link className={styles.primaryText} to="/signup">
                             Sign Up
                         </Link>{' '}
                         here

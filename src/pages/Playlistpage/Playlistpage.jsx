@@ -18,7 +18,7 @@ export default function Playlistpage() {
 
     const deletePlaylist = (playListId) => {
         deleteUserPlaylist({ playListId, dispatch });
-        navigate('/');
+        navigate(-1);
     };
 
     useEffect(() => {

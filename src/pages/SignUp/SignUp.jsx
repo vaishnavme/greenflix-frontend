@@ -1,7 +1,11 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../context';
-import { errorNotification, successNotification } from '../../components';
+import {
+    errorNotification,
+    successNotification,
+    InputField
+} from '../../components';
 import styles from './SignUp.module.css';
 
 export default function SignUp() {
@@ -64,42 +68,27 @@ export default function SignUp() {
                 </div>
                 <div className={`${styles.body}`}>
                     <form>
-                        <div className="mt-2 mb-2">
-                            <input
-                                className={`${styles.inputBox}`}
-                                onChange={(e) => inputChangeHandler(e)}
-                                name="name"
-                                type="text"
-                                placeholder="Your Name"
-                                required
-                            />
-                            <span></span>
-                        </div>
-                        <div className="mt-2 mb-2">
-                            <input
-                                className={`${styles.inputBox}`}
-                                onChange={(e) => inputChangeHandler(e)}
-                                name="email"
-                                type="email"
-                                placeholder="Enter your email"
-                                required
-                            />
-                            <span></span>
-                        </div>
-                        <div className="mt-2 mb-2">
-                            <input
-                                className={`${styles.inputBox}`}
-                                onChange={(e) => inputChangeHandler(e)}
-                                name="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                required
-                            />
-                            <span></span>
-                        </div>
+                        <InputField
+                            labelName={'Name'}
+                            type={'text'}
+                            name={'name'}
+                            onChangeOperation={inputChangeHandler}
+                        />
+                        <InputField
+                            labelName={'Email'}
+                            type={'email'}
+                            name={'email'}
+                            onChangeOperation={inputChangeHandler}
+                        />
+                        <InputField
+                            labelName={'Password'}
+                            type={'password'}
+                            name={'password'}
+                            onChangeOperation={inputChangeHandler}
+                        />
                         <button
                             onClick={(e) => createAccount(e)}
-                            className={`btn btn-secondary ${styles.formBtn}`}
+                            className={`${styles.btn} ${styles.primary}`}
                         >
                             Sign Up
                         </button>
@@ -107,7 +96,7 @@ export default function SignUp() {
                     {errorMessage && <p className="f-danger">{errorMessage}</p>}
                     <p>
                         Already have an account?{' '}
-                        <Link className={`f-primary`} to="/login">
+                        <Link className={styles.primaryText} to="/login">
                             Log in
                         </Link>{' '}
                         here

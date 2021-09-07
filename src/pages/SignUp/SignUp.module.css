@@ -4,23 +4,29 @@
 }
 .card {
     max-width: 25rem;
+    padding: 1rem;
     margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 0.5rem;
-    border: 1px solid var(--border);
+    border: 1px solid var(--light-gray);
     text-align: center;
+    box-shadow: var(--box-shadow);
 }
 
-.formBtn {
-    width: 320px;
-    padding: 0.5rem 0;
-}
-
-.inputBox {
+.btn {
+    background: none;
+    border: 1px solid var(--light-gray);
+    font-size: 14px;
+    padding: 0.4rem 0.8rem;
     width: 100%;
-    padding: 0.5rem;
-    border-radius: 0.2rem;
-    border: 2px solid var(--light-gray);
+    margin: 0.6rem auto;
+}
+.primary {
+    color: var(--white);
+    background-color: #27da53;
+}
+.primaryText {
+    color: #1eaa41;
 }
