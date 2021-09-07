@@ -62,9 +62,27 @@
     width: 100%;
     box-shadow: var(--box-shadow);
     background-color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all ease-in-out 600ms;
+}
+.navShow {
+    left: 0;
+}
+.navHide {
+    left: -100% !important;
 }
 .brand {
     font-weight: 500;
+}
+.menuBtn {
+    color: var(--black);
+    background-color: var(--white);
+    font-size: 1.3rem;
+    font-weight: 500;
+    border: none;
+    display: none;
 }
 .nav {
     width: 15rem;
@@ -107,4 +125,10 @@
 }
 .linkText {
     margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .menuBtn {
+        display: block;
+    }
 }

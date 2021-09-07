@@ -92,12 +92,25 @@ import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 
 export const Navbar = () => {
+    const [isNavActive, setNavActive] = useState(false);
     return (
         <>
             <header className={styles.header}>
                 <h3 className={styles.brand}>GreenFlix</h3>
+                <button
+                    onClick={() => setNavActive((prevState) => !prevState)}
+                    className={styles.menuBtn}
+                >
+                    <i className="bx bx-menu"></i>
+                </button>
             </header>
-            <nav className={styles.nav}>
+            <nav
+                className={
+                    isNavActive
+                        ? `${styles.nav} ${styles.navShow}`
+                        : `${styles.nav} ${styles.navHide}`
+                }
+            >
                 <ul className={styles.navItem}>
                     <NavLink className={styles.navLink} to="/">
                         <i className="bx bx-home"></i>
