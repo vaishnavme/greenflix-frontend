@@ -3,7 +3,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { useData, useAuth, useLoader } from '../../context';
-import { LoginModal, Loader, alreadyExist, InputField } from '../../components';
+import {
+    LoginModal,
+    Loader,
+    alreadyExist,
+    InputField,
+    Suggestions
+} from '../../components';
 import { BASE_URI } from '../../api';
 import {
     toggleLikeVideos,
@@ -87,6 +93,7 @@ export default function VideoDetails() {
             video: videoInfo,
             dispatch
         });
+        setPlaylistName('');
     };
 
     const toggleInPlaylist = async (playlistId) => {
@@ -107,52 +114,27 @@ export default function VideoDetails() {
         setShowModal(() => !showModal);
     };
 
+    console.log(videoInfo);
+
     return (
-        <>
+        <section className={styles.mainSection}>
             {isLoading && <Loader />}
             {showModal && (
                 <LoginModal setModelVisibility={setModelVisibility} />
             )}
-            {videoInfo && (
-                <div className={`${styles.videoDetails}`}>
+            <div className={styles.videoPlayer}>
+                {videoInfo && (
                     <div>
                         <ReactPlayer
                             className={styles.reactPlayer}
-                            url={`https://www.youtube.com/watch?v=${videoInfo.link}`}
+                            url={`https:www.youtube.com/watch?v=${videoInfo.link}`}
                             width="100%"
                             height="100%"
                             controls
                             pip
                         />
-                    </div>
-                    <div className={`${styles.about}`}>
-                        <div className={`${styles.aboutInfo}`}>
-                            <div className={`${styles.title}`}>
-                                {videoInfo.title}
-                            </div>
-                            <div className={`${styles.description}`}>
-                                {videoInfo.description}
-                            </div>
-                        </div>
-                        <div className={`${styles.aboutAction}`}>
-                            <a
-                                href={videoInfo.channellink}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <div className={`${styles.channel}`}>
-                                    <img
-                                        className={`${styles.channelProfile}`}
-                                        src={videoInfo.profilelink}
-                                        alt={videoInfo.name}
-                                    />
-                                    <div className={`${styles.channelName}`}>
-                                        {videoInfo.name}
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div className={`${styles.aboutButtons}`}>
+                        <div>
+                            <div className={styles.actionBar}>
                                 <button
                                     className={`${styles.btnIcon}`}
                                     onClick={() => addToLiked(videoInfo)}
@@ -163,7 +145,7 @@ export default function VideoDetails() {
                                                 LikedVideos,
                                                 videoInfo._id
                                             )
-                                                ? 'bxs-heart'
+                                                ? `bxs-heart ${styles.activeHeart}`
                                                 : 'bx-heart'
                                         } `}
                                     ></i>
@@ -178,7 +160,7 @@ export default function VideoDetails() {
                                                 WatchLater,
                                                 videoInfo._id
                                             )
-                                                ? 'bxs-stopwatch'
+                                                ? `bxs-stopwatch ${styles.activeWatch}`
                                                 : 'bx-stopwatch'
                                         } `}
                                     ></i>
@@ -192,90 +174,101 @@ export default function VideoDetails() {
                                     <i className="bx bxs-playlist"></i>
                                 </button>
                                 {showMenu && (
-                                    <div className={`${styles.modal}`}>
-                                        <div className={`${styles.body}`}>
-                                            <div className={`${styles.header}`}>
-                                                <div className={`text-center`}>
-                                                    Create new playlist
-                                                </div>
-                                                <ul>
-                                                    {Playlist &&
-                                                        Playlist?.map(
-                                                            (playlistItem) => (
-                                                                <li
-                                                                    key={
-                                                                        playlistItem._id
-                                                                    }
-                                                                    className={`${styles.playlist}`}
-                                                                >
-                                                                    <input
-                                                                        checked={
-                                                                            !!isInPlaylist(
-                                                                                playlistItem._id
-                                                                            )
-                                                                        }
-                                                                        type="checkbox"
-                                                                        onChange={() =>
-                                                                            toggleInPlaylist(
-                                                                                playlistItem._id
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                    <p
-                                                                        className={`pl-1`}
-                                                                    >
-                                                                        {
-                                                                            playlistItem.playlistName
-                                                                        }
-                                                                    </p>
-                                                                </li>
-                                                            )
-                                                        )}
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <InputField
-                                                    name="playlistName"
-                                                    type="text"
-                                                    labelName="Create Playlist"
-                                                    onChangeOperation={(e) =>
-                                                        setPlaylistName(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-                                                <div
-                                                    className={`${styles.action}`}
-                                                >
-                                                    <button
-                                                        onClick={() =>
-                                                            setShowMenu(
-                                                                (prevState) =>
-                                                                    !prevState
-                                                            )
-                                                        }
-                                                        className={`btn btn-secondary`}
-                                                    >
-                                                        Cancel
-                                                    </button>
-                                                    <button
-                                                        onClick={() =>
-                                                            createNewPlaylist()
-                                                        }
-                                                        className={`btn btn-secondary`}
-                                                    >
-                                                        Create
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <PlaylistMenu
+                                        Playlist={Playlist}
+                                        isInPlaylist={isInPlaylist}
+                                        toggleInPlaylist={toggleInPlaylist}
+                                        playlistName={playlistName}
+                                        setPlaylistName={setPlaylistName}
+                                        setShowMenu={setShowMenu}
+                                        createNewPlaylist={createNewPlaylist}
+                                    />
                                 )}
+                            </div>
+                            <div>
+                                <h1 className={styles.videoTitle}>
+                                    {videoInfo.title}
+                                </h1>
+                                <p className={styles.description}>
+                                    {videoInfo.description}
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </>
+                )}
+            </div>
+            <div className={styles.suggestions}>
+                <Suggestions currentVideoId={videoInfo?._id} />
+            </div>
+        </section>
     );
 }
+
+const PlaylistMenu = ({
+    Playlist,
+    isInPlaylist,
+    toggleInPlaylist,
+    playlistName,
+    setPlaylistName,
+    setShowMenu,
+    createNewPlaylist
+}) => {
+    return (
+        <div className={`${styles.modal}`}>
+            <div className={`${styles.body}`}>
+                <div className={`${styles.header}`}>
+                    <div className={`text-center`}>Create new playlist</div>
+                    <ul>
+                        {Playlist &&
+                            Playlist?.map((playlistItem) => (
+                                <li
+                                    key={playlistItem._id}
+                                    className={`${styles.playlist}`}
+                                >
+                                    <input
+                                        checked={
+                                            !!isInPlaylist(playlistItem._id)
+                                        }
+                                        type="checkbox"
+                                        onChange={() =>
+                                            toggleInPlaylist(playlistItem._id)
+                                        }
+                                    />
+                                    <p className={styles.space}>
+                                        {playlistItem.playlistName}
+                                    </p>
+                                </li>
+                            ))}
+                    </ul>
+                </div>
+                <div>
+                    <InputField
+                        name="playlistName"
+                        type="text"
+                        value={playlistName}
+                        labelName="Create Playlist"
+                        onChangeOperation={(e) =>
+                            setPlaylistName(e.target.value)
+                        }
+                    />
+                    <div className={`${styles.action}`}>
+                        <button
+                            onClick={() =>
+                                setShowMenu((prevState) => !prevState)
+                            }
+                            className={`${styles.btn} ${styles.secondary}`}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={() => createNewPlaylist()}
+                            className={`${styles.btn} ${styles.primary}`}
+                        >
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};

@@ -2,7 +2,7 @@
 
 :root {
     --white: #ffffff;
-    --light-gray: #ecfdf5;
+    --light-gray: #efefef;
     --red: #dc2626;
     --box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
         rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
@@ -23,6 +23,7 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
 }
 button {
     cursor: pointer;
