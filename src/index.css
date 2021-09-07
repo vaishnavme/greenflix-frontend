@@ -4,7 +4,8 @@
     --white: #ffffff;
     --light-gray: #e2e8f0;
     --red: #dc2626;
-    --box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    --box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+        rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     --border-radius: 0.2rem;
 }
 * {

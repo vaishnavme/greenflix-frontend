@@ -11,8 +11,7 @@ export const VideoCard = ({ video }) => {
                     alt={video.title}
                 />
                 <div className={`${styles.cardBody}`}>
-                    <div className={`${styles.title}`}>{video.title}</div>
-                    <div className={`${styles.creator}`}>{video.creator}</div>
+                    <h1 className={`${styles.title}`}>{video.title}</h1>
                 </div>
             </div>
         </Link>

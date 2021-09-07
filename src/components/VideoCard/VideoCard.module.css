@@ -1,10 +1,14 @@
 .card {
-    margin: auto 1rem 2rem;
-    max-width: 21rem;
-    height: 16rem;
+    margin: auto 1.5rem 2rem;
+    max-width: 22rem;
+    min-height: 17rem;
     border-radius: 0.2rem;
     overflow: hidden;
     border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+}
+.card:hover {
+    box-shadow: var(--box-shadow);
 }
 .thumbnail {
     width: 100%;
@@ -17,7 +21,10 @@
     -webkit-line-clamp: 2;
     overflow: hidden;
 }
-
+.title {
+    font-size: 1rem;
+    font-weight: 500;
+}
 @media screen and (max-width: 640px) {
     .card {
         max-width: 100%;
