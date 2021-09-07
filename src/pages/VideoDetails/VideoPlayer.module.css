@@ -6,6 +6,9 @@
     max-width: 65%;
     padding: 0.5rem;
 }
+.suggestions {
+    padding: 0.5rem;
+}
 .reactPlayer {
     max-width: inherit;
     height: 28rem !important;
@@ -82,4 +85,13 @@
 .primary {
     color: var(--white);
     background-color: #27da53;
+}
+
+@media screen and (max-width: 1200px) {
+    .mainSection {
+        flex-direction: column;
+    }
+    .videoPlayer {
+        max-width: 100%;
+    }
 }
