@@ -9,12 +9,12 @@ export const LoginModal = ({ setModelVisibility }) => {
                 <div className={`h6`}>You need to be logged in</div>
                 <div className={`${styles.menuFooter}`}>
                     <button
-                        className={`btn btn-secondary w40`}
+                        className={`${styles.btn} ${styles.secondary}`}
                         onClick={() => setModelVisibility(false)}
                     >
-                        CLOSE
+                        Close
                     </button>
-                    <button className={`btn btn-secondary w40`}>
+                    <button className={`${styles.btn} ${styles.primary}`}>
                         <Link to="/login">Log In</Link>
                     </button>
                 </div>
