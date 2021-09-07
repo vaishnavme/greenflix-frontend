@@ -110,6 +110,10 @@
     border-radius: var(--border-radius);
     background-color: var(--light-gray);
 }
+.navLink:hover,
+.btnLogout:hover {
+    background-color: #fde68a;
+}
 .link {
     margin-left: 0.5rem;
 }
