@@ -14,7 +14,11 @@ export const Suggestions = ({ currentVideoId }) => {
             <div>
                 {suggestedVideos &&
                     suggestedVideos.map((video) => (
-                        <Link to={`/${video._id}`} className={`${styles.card}`}>
+                        <Link
+                            key={video._id}
+                            to={`/${video._id}`}
+                            className={`${styles.card}`}
+                        >
                             <div>
                                 <img
                                     src={video.image}

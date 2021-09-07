@@ -114,8 +114,6 @@ export default function VideoDetails() {
         setShowModal(() => !showModal);
     };
 
-    console.log(videoInfo);
-
     return (
         <section className={styles.mainSection}>
             {isLoading && <Loader />}
