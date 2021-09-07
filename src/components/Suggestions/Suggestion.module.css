@@ -1,0 +1,14 @@
+.card {
+    max-width: 25rem;
+    display: flex;
+    cursor: pointer;
+}
+.cardImage {
+    max-width: 12rem;
+    border-radius: var(--border-radius);
+}
+.cardTitle {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
