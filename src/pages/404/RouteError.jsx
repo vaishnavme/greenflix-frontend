@@ -1,4 +1,4 @@
-import styles from "./RouteError.module.css"
+import styles from './RouteError.module.css';
 
 export const RouteError = () => {
     return (
@@ -9,6 +9,6 @@ export const RouteError = () => {
                     <h2>404 - The Page can't be found</h2>
                 </div>
             </div>
-	    </div>
-    )
-}
+        </div>
+    );
+};
