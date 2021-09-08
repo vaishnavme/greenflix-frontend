@@ -9,34 +9,7 @@ export default function Login() {
             <section className={`${styles.wrapper}`}>
                 <div className={`${styles.formSection}`}>
                     <div className={`${styles.header}`}>
-                        <h5>Hi {user.name}</h5>
-                    </div>
-                    <div className={`mt-2 mb-2`}>
-                        <p>
-                            Welcome to account setting. You can update your{' '}
-                            <br /> account details here.
-                        </p>
-                        <div className={`mt-2 mb-2`}>
-                            <label className={`${styles.label}`}>
-                                Your Name
-                            </label>
-                            <input
-                                className={`${styles.inputField} mb-2`}
-                                readOnly
-                                type="text"
-                                defaultValue={user.name}
-                            />
-
-                            <label className={`${styles.label}`}>
-                                Your Email
-                            </label>
-                            <input
-                                className={`${styles.inputField} mb-4`}
-                                readOnly
-                                type="text"
-                                defaultValue={user.email}
-                            />
-                        </div>
+                        <h2>Hi {user.name} 👋</h2>
                     </div>
                 </div>
             </section>
