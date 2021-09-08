@@ -21,6 +21,10 @@
     padding: 0.5rem 1rem;
     border-bottom: 1px solid var(--border);
 }
+.heading {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
 .deleteBtn {
     color: var(--red);
     padding: 0.4rem 0.8rem;

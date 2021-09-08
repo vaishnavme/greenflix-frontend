@@ -52,3 +52,12 @@
     color: var(--white);
     background-color: var(--red);
 }
+.heading {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+}
+.sectionBreak {
+    margin: 2rem 0 0.5rem;
+    border-top: 1px solid #f0f0f0;
+}
