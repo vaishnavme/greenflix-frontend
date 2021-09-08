@@ -48,7 +48,7 @@ export default function Playlistpage() {
             {currentVideoList && (
                 <div>
                     <div className={`${styles.header}`}>
-                        <div className="h3">
+                        <div className={styles.heading}>
                             {currentVideoList?.playlistName}
                         </div>
                         <div>

@@ -10,7 +10,7 @@ export default function Playlists() {
             <div className={`${styles.block}`}>
                 {LikedVideos.length === 0 ? null : (
                     <div>
-                        <div className={`h4`}>Liked Videos</div>
+                        <div className={styles.heading}>Liked Videos</div>
                         {
                             <Link to={`/playlist/liked`}>
                                 <div className={`${styles.thumbnail}`}>
@@ -32,7 +32,7 @@ export default function Playlists() {
                 )}
                 {WatchLater.length === 0 ? null : (
                     <div>
-                        <div className={`h4`}>Watch Later</div>
+                        <div className={styles.heading}>Watch Later</div>
                         {
                             <Link to={`/playlist/watch`}>
                                 <div className={`${styles.thumbnail}`}>
@@ -53,13 +53,16 @@ export default function Playlists() {
                     </div>
                 )}
             </div>
+
             {Playlist.length === 0 ? null : (
                 <div>
-                    <div className={`h4`}>User Playlists</div>
+                    <div className={`${styles.heading} ${styles.sectionBreak}`}>
+                        User Playlists
+                    </div>
                     <div className={`${styles.block}`}>
                         {Playlist.map((userPlaylist) => (
                             <div key={userPlaylist._id}>
-                                <div className={`h4`}>
+                                <div className={styles.heading}>
                                     {userPlaylist.playlistName}
                                 </div>
                                 <Link to={`/playlist/${userPlaylist._id}`}>

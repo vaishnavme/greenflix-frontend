@@ -8,7 +8,6 @@ import {
     Playlistpage,
     VideoDetails,
     Login,
-    Account,
     SignUp,
     RouteError
 } from './pages';
@@ -35,11 +34,6 @@ function App() {
                         path="/playlist/:playlistId"
                         login={user}
                         element={<Playlistpage />}
-                    />
-                    <PrivateRoute
-                        path="account"
-                        login={user}
-                        element={<Account />}
                     />
                 </Routes>
             </div>

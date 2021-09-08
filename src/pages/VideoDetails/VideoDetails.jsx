@@ -87,6 +87,10 @@ export default function VideoDetails() {
             : setShowModal(true);
     };
 
+    const checkLoggedUser = () => {
+        user ? setShowMenu(true) : setShowModal(true);
+    };
+
     const createNewPlaylist = async () => {
         await createPlaylist({
             playlistName: playlistName,
@@ -165,9 +169,7 @@ export default function VideoDetails() {
                                 </button>
                                 <button
                                     className={`${styles.btnIcon}`}
-                                    onClick={() =>
-                                        setShowMenu((prevState) => !prevState)
-                                    }
+                                    onClick={() => checkLoggedUser()}
                                 >
                                     <i className="bx bxs-playlist"></i>
                                 </button>
@@ -243,7 +245,7 @@ const PlaylistMenu = ({
                     <InputField
                         name="playlistName"
                         type="text"
-                        value={playlistName}
+                        defaultValue={playlistName}
                         labelName="Create Playlist"
                         onChangeOperation={(e) =>
                             setPlaylistName(e.target.value)

@@ -54,17 +54,15 @@ export const Navbar = () => {
                         <i className="bx bxs-playlist"></i>
                         <span className={styles.linkText}>Playlist</span>
                     </NavLink>
-                    {user && (
-                        <NavLink
-                            activeStyle={activeStyle}
-                            className={styles.navLink}
-                            to="/account"
+                    {user ? (
+                        <button
+                            onClick={() => logout()}
+                            className={styles.btnLogout}
                         >
-                            <i className="bx bx-user"></i>{' '}
-                            <span className={styles.linkText}>Account</span>
-                        </NavLink>
-                    )}
-                    {!user && (
+                            <i className="bx bx-log-out"></i>
+                            <span className={styles.linkText}>Log out</span>
+                        </button>
+                    ) : (
                         <NavLink
                             activeStyle={activeStyle}
                             className={styles.navLink}
@@ -75,16 +73,6 @@ export const Navbar = () => {
                         </NavLink>
                     )}
                 </ul>
-
-                {user && (
-                    <button
-                        onClick={() => logout()}
-                        className={styles.btnLogout}
-                    >
-                        <i className="bx bx-log-out"></i>
-                        <span className={styles.linkText}>Log out</span>
-                    </button>
-                )}
             </nav>
         </>
     );
