@@ -1,8 +1,12 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { useAuth } from "../../context";
-import { errorNotification, successNotification, InputField } from "../../components";
-import styles from "./Login.module.css";
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useAuth } from '../../context';
+import {
+    errorNotification,
+    successNotification,
+    InputField
+} from '../../components';
+import styles from './Login.module.css';
 
 export default function Login() {
     const [logInCred, setLoginCred] = useState({});
@@ -14,35 +18,35 @@ export default function Login() {
         const value = e.target.value;
         setLoginCred({
             ...logInCred,
-            [e.target.name] : value
-        })
-    }
-    
-    const loginHandler = async(e) => {
-        e.preventDefault();
-        const { success } = await logInUser(logInCred)
-        if(success) {
-            successNotification("Login Successfull!!")
-            navigate(state?.from ? state.from : "/", { replace: true });
-        } else {
-            errorNotification("Error Ocuured")
-        }
-    }
+            [e.target.name]: value
+        });
+    };
 
-    const loginAsGuest = async(e) => {
+    const loginHandler = async (e) => {
+        e.preventDefault();
+        const { success } = await logInUser(logInCred);
+        if (success) {
+            successNotification('Login Successfull!!');
+            navigate(state?.from ? state.from : '/', { replace: true });
+        } else {
+            errorNotification('Error Ocuured');
+        }
+    };
+
+    const loginAsGuest = async (e) => {
         e.preventDefault();
         let logInCred = {
-            email: "johnsnow@dev.com",
-            password: "Password@123"
-        }
-        const { success } = await logInUser(logInCred)
-        if(success) {
-            successNotification("Login Successfull!!")
-            navigate(state?.from ? state.from : "/", { replace: true });
+            email: 'johnsnow@dev.com',
+            password: 'Password@123'
+        };
+        const { success } = await logInUser(logInCred);
+        if (success) {
+            successNotification('Login Successfull!!');
+            navigate(state?.from ? state.from : '/', { replace: true });
         } else {
-            errorNotification("Error Ocuured")
+            errorNotification('Error Ocuured');
         }
-    }
+    };
 
     return (
         <div className={`${styles.main}`}>
@@ -54,31 +58,41 @@ export default function Login() {
                 <div className={`${styles.body}`}>
                     <form>
                         <InputField
-                            labelName={"Email"}
-                            type={"email"}
-                            name={"email"}
+                            labelName={'Email'}
+                            type={'email'}
+                            name={'email'}
                             onChangeOperation={logInCredsHandler}
                         />
                         <InputField
-                            labelName={"Password"}
-                            type={"password"}
-                            name={"password"}
+                            labelName={'Password'}
+                            type={'password'}
+                            name={'password'}
                             onChangeOperation={logInCredsHandler}
                         />
-                        <button
-                            onClick={(e) => loginHandler(e)}
-                            className={`btn btn-secondary ${styles.formBtn}`}>
+                        <div className={styles.action}>
+                            <button
+                                onClick={(e) => loginHandler(e)}
+                                className={`${styles.btn} ${styles.secondary}`}
+                            >
                                 Log in
-                        </button>
-                        <button
-                            onClick={(e) => loginAsGuest(e)}
-                            className={`btn btn-secondary ${styles.formBtn}`}>
+                            </button>
+                            <button
+                                onClick={(e) => loginAsGuest(e)}
+                                className={`${styles.btn} ${styles.primary}`}
+                            >
                                 Login As Guest
-                        </button>
+                            </button>
+                        </div>
                     </form>
-                    <p>Don't have account? <Link className="f-primary" to="/signup">Sign Up</Link> here</p>
+                    <p>
+                        Don't have account?{' '}
+                        <Link className={styles.primaryText} to="/signup">
+                            Sign Up
+                        </Link>{' '}
+                        here
+                    </p>
                 </div>
             </div>
         </div>
-    )
+    );
 }

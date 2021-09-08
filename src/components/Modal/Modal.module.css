@@ -6,7 +6,7 @@
     align-items: center;
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 25;
     position: fixed;
     background-color: hsla(0, 0%, 0%, 0.411);
 }
@@ -20,4 +20,18 @@
     border-radius: 0.5rem;
     text-align: center;
     padding: 1rem;
-} 
+}
+.btn {
+    background: none;
+    border: 1px solid var(--light-gray);
+    font-size: 14px;
+    padding: 0.4rem 0.8rem;
+    width: 8rem;
+}
+.secondary {
+    background-color: #fde68a;
+}
+.primary {
+    color: var(--white);
+    background-color: #27da53;
+}

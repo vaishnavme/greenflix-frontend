@@ -10,7 +10,7 @@
     max-width: inherit;
 }
 @media screen and (max-width: 405px) {
-    .videoCard{
+    .videoCard {
         max-width: 100%;
         height: auto;
         margin: auto;

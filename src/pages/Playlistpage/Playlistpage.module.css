@@ -23,7 +23,9 @@
 }
 .deleteBtn {
     color: var(--red);
-    padding: 1px 3px;
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+    background: none;
     border: 1px solid var(--red);
 }
 .deleteBtn:hover {
