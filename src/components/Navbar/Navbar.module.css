@@ -64,7 +64,8 @@
 }
 
 .btnLogout {
-    padding: 0.8rem 1rem;
+    width: 100%;
+    padding: 0.7rem 1rem;
     font-size: inherit;
     border-radius: var(--border-radius);
     border: 1px solid var(--light-gray);
